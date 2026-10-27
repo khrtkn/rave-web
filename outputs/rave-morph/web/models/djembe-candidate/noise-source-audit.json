@@ -1,0 +1,77 @@
+{
+  "originalNoiseOps": [
+    {
+      "name": "/RandomNormalLike",
+      "attributes": {
+        "dtype": 1
+      },
+      "output": "/RandomNormalLike_output_0"
+    },
+    {
+      "name": "/RandomNormalLike_1",
+      "attributes": {
+        "dtype": 1
+      },
+      "output": "/RandomNormalLike_1_output_0"
+    }
+  ],
+  "originalNoiseEmpiricalStats": [
+    {
+      "name": "/RandomNormalLike",
+      "shape": [
+        1,
+        16,
+        128
+      ],
+      "mean": -0.0015440331771969795,
+      "std": 1.0001682043075562
+    },
+    {
+      "name": "/RandomNormalLike_1",
+      "shape": [
+        1,
+        12,
+        128
+      ],
+      "mean": -0.0251151230186224,
+      "std": 0.9696660041809082
+    }
+  ],
+  "originalRawOutput": {
+    "postWarmRms": 2.0316919094264065,
+    "postWarmPeak": 14.233790397644043
+  },
+  "explicitNoiseVsOriginalExactSameRealizedNoise": {
+    "max_abs": 0.0,
+    "rms": 0.0
+  },
+  "conclusion": "Original ops have dtype only: ONNX defaults mean=0, scale=1. Substitution preserves the exact realized output. Original raw output overshoot is present before adaptation.",
+  "explicitNoiseScaleDiagnostic": [
+    {
+      "scaleAppliedToBothNoiseInputs": 0,
+      "rms": 2.9275788655143297e-05,
+      "peak": 0.00010318518616259098
+    },
+    {
+      "scaleAppliedToBothNoiseInputs": 0.1,
+      "rms": 0.1327263872829327,
+      "peak": 3.3531062602996826
+    },
+    {
+      "scaleAppliedToBothNoiseInputs": 0.25,
+      "rms": 0.7469645818885164,
+      "peak": 7.072552680969238
+    },
+    {
+      "scaleAppliedToBothNoiseInputs": 0.5,
+      "rms": 1.2796092291176353,
+      "peak": 10.697051048278809
+    },
+    {
+      "scaleAppliedToBothNoiseInputs": 1,
+      "rms": 1.7499783333099874,
+      "peak": 12.759906768798828
+    }
+  ],
+  "scaleDiagnosticNote": "An application control experiment only; scale=1 is the original distribution. No default noise scale was changed in either model contract or graph."
+}

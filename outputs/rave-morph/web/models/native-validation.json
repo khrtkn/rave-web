@@ -1,0 +1,199 @@
+{
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0",
+    "numpy": "2.5.4",
+    "provider": "CPUExecutionProvider",
+    "intra_op_threads": 1,
+    "inter_op_threads": 1
+  },
+  "blocks_4096": 48,
+  "audio_seconds": 4.096,
+  "input": "Deterministic synthetic chirp/AM/multiple sine/noise/zero segments, seed 20261026; identical noise tensors shared between variants",
+  "neutral_4096_vs_original": {
+    "max_abs": 0.0,
+    "rms": 0.0
+  },
+  "neutral_2048_vs_original_4096": {
+    "max_abs": 1.6145408153533936e-05,
+    "rms": 5.200888574249781e-07
+  },
+  "maximum_final_state_abs_error_over_stream": 0.0004119873046875,
+  "latent_knob_output_difference_after_warmup": {
+    "max_abs": 0.3673586677759886,
+    "rms": 0.06627147669432365
+  },
+  "neutral_output_rms_after_warmup": 0.06876401632293754,
+  "changed_output_rms_after_warmup": 0.01293933086554228,
+  "changed_output_peak_after_warmup": 0.06718067824840546,
+  "timings_ms": {
+    "original_4096": {
+      "median": 8.307791489642113,
+      "p95": 9.233929061156232,
+      "max": 28.750791010679677,
+      "mean": 8.771620622913664
+    },
+    "latent_4096": {
+      "median": 8.257521010818891,
+      "p95": 9.40646424278384,
+      "max": 17.848749994300306,
+      "mean": 8.55974818963053
+    },
+    "latent_2048": {
+      "median": 7.302229001652449,
+      "p95": 7.956551999086514,
+      "max": 14.57691699033603,
+      "mean": 7.420486113005609
+    }
+  },
+  "timing_scope": "Native Python ONNX Runtime CPU session.run including output and state retrieval; not browser/WASM timings or E2E latency",
+  "passed": true,
+  "independent_six_axis_test": {
+    "warmup_blocks_2048": 40,
+    "comparison_blocks_2048": 24,
+    "source": "Deterministic chirp/noise, seed1234; identical warm states/input/noise, exactly one gain or bias differs",
+    "results": [
+      {
+        "dimension": 1,
+        "source_channel": 97,
+        "bias": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.47630587965250015,
+            "rms": 0.05096943070212157
+          },
+          "peak": 0.7169081568717957,
+          "finite": true
+        },
+        "gain": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.557122353464365,
+            "rms": 0.09949995005677992
+          },
+          "peak": 0.7169062495231628,
+          "finite": true
+        }
+      },
+      {
+        "dimension": 2,
+        "source_channel": 86,
+        "bias": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.5865640640258789,
+            "rms": 0.050877894302533484
+          },
+          "peak": 0.7169038653373718,
+          "finite": true
+        },
+        "gain": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.5361066684126854,
+            "rms": 0.05954959228433972
+          },
+          "peak": 0.7169118523597717,
+          "finite": true
+        }
+      },
+      {
+        "dimension": 3,
+        "source_channel": 120,
+        "bias": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.4768712315708399,
+            "rms": 0.04782630865215192
+          },
+          "peak": 0.716907799243927,
+          "finite": true
+        },
+        "gain": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.10192827880382538,
+            "rms": 0.008952926072312458
+          },
+          "peak": 0.7169076800346375,
+          "finite": true
+        }
+      },
+      {
+        "dimension": 4,
+        "source_channel": 10,
+        "bias": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.4306432995945215,
+            "rms": 0.03798249650810221
+          },
+          "peak": 0.716907262802124,
+          "finite": true
+        },
+        "gain": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.29652213491499424,
+            "rms": 0.023771480189676054
+          },
+          "peak": 0.7169079780578613,
+          "finite": true
+        }
+      },
+      {
+        "dimension": 5,
+        "source_channel": 55,
+        "bias": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.3415831923484802,
+            "rms": 0.019958900849421864
+          },
+          "peak": 0.7169069647789001,
+          "finite": true
+        },
+        "gain": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.6839270312339067,
+            "rms": 0.06252909340474083
+          },
+          "peak": 0.7169091701507568,
+          "finite": true
+        }
+      },
+      {
+        "dimension": 6,
+        "source_channel": 60,
+        "bias": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.5072896033525467,
+            "rms": 0.02991196712788873
+          },
+          "peak": 0.7169084548950195,
+          "finite": true
+        },
+        "gain": {
+          "value": 0.5,
+          "difference": {
+            "max_abs": 0.39460231736302376,
+            "rms": 0.033895045134219114
+          },
+          "peak": 0.7169070839881897,
+          "finite": true
+        }
+      }
+    ]
+  },
+  "zero_noise_reset_reproducibility": {
+    "output_error": {
+      "max_abs": 0.0,
+      "rms": 0.0
+    },
+    "all_state_tensors_identical": true
+  }
+}

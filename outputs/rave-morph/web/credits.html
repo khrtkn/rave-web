@@ -1,0 +1,11 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RAVE Morph — 出典と利用条件</title><link rel="stylesheet" href="./style.css"><main><a href="./">← RAVE Morphに戻る</a><section class="intro"><h1>出典と利用条件</h1><p>独自RAVE試作。モデルの重みと配布条件を保持しています。</p></section><article>
+<p>音色モデル: <strong>Water / IIL · Pond Brain</strong>。Intelligent Instruments LabがJenna SutelaのPond Brainのために制作。RAVEはAntoine Caillon、Philippe Esling / ACIDS・IRCAMによる研究です。水の録音で学習したRAVE実モデルの重みを使用しています。</p>
+<p><a href="https://huggingface.co/Intelligent-Instruments-Lab/rave-models/blob/c25a03d625840c40cd3a48779ed72f2a1947d7b4/README.md">IILのモデルカード</a> / <a href="https://github.com/acids-ircam/RAVE">RAVE公式</a> / <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a></p>
+<p><strong>Djembe / Scyclone</strong>: Torsion Audioの公開RAVE実モデル（固定commit 2b1990c4ad04fec1981d21bdde94fdafbadb84e0）。<a href="https://github.com/Torsion-Audio/Scyclone/blob/2b1990c4ad04fec1981d21bdde94fdafbadb84e0/README.md#licenses">出典・CC BY-NC条件</a>。4個の潜在座標を公開し、35個のConvと4個のConvTransposeに状態保持を追加。全元initializerを保持し、元モデルに対して既知の追加遅延1360 samplesを検証しました。通常noiseでの長信号との小さな数値残差が残るため実験版です。</p>
+<p>学習済みモデルは非商用利用・出典表示等の条件付きです。本アプリでは、元の4096 samples状態付きONNXへ潜在gain/bias入力を追加し、2048 samples用の固定shape・関連定数を調整しました。学習済み重みは変更していません。変更の再現スクリプト・元SHA-256・出力検証は配布フォルダに含みます。</p>
+<p>Waterは16次元のうち6座標、Djembeは保持された4座標を操作します。PCA、音響的に命名された意味軸、Neutone Morphoとの同一性を主張しません。</p>
+<p>Djembeの元モデルにもフルスケールを超えるraw出力があることを確認しました。独自アプリとして再生gainの初期値を4%とし、再生直前に±0.98のピーク上限を置いています。保存WAVはその前の音を32-bit floatで保持し、正規化・clipしません。</p>
+<p>推論: ONNX Runtime Web 1.30.0 / Microsoft contributors / MIT。<a href="./vendor/ort/LICENSE">LICENSE</a> / <a href="./vendor/ort/ThirdPartyNotices.txt">Third-party notices</a>。モデルロード時にSHA-256とtensor契約を照合します。</p>
+<p>音声はAudioWorkletとWorker内で処理します。HTTPサーバーは静的ファイル配信のみです。音声アップロード、プラグイン連携、サーバー推論は実装していません。マイクは開始時に要求し、停止時に解放します。</p>
+<p>デモ入力はこの試作内で生成した和音・打音・ノイズです。音色変換に使用する学習済みRAVEモデルとは別の入力信号です。</p>
+</article></main></html>

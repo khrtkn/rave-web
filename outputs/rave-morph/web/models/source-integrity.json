@@ -1,0 +1,59 @@
+{
+  "checkedDate": "2026-10-26",
+  "sourceModelSha256": "b6c84085f475b3bddf69eb2ee0a85836230e0462d7d112cc3a2cb6e497914e47",
+  "originalFileChecks": [
+    {
+      "path": "./local-source/ensemble-app.js",
+      "sha256": "5dc4a91e3fa9b930796be6ea4f65c6ebf103ff22dc27b1e0ca8aff68a4a24e5c",
+      "expectedSha256": "5dc4a91e3fa9b930796be6ea4f65c6ebf103ff22dc27b1e0ca8aff68a4a24e5c",
+      "unchanged": true
+    },
+    {
+      "path": "./local-source/stream-worker.js",
+      "sha256": "3308820a1ab558e114262bab1aa04c8a1a4aca8aa032a0d7cd3a925fdc6c5e25",
+      "expectedSha256": "3308820a1ab558e114262bab1aa04c8a1a4aca8aa032a0d7cd3a925fdc6c5e25",
+      "unchanged": true
+    },
+    {
+      "path": "./local-source/render-clip.mjs",
+      "sha256": "31e859e58426031a15d72cd3697009a43acb25767150d27d13b047352544c8ba",
+      "expectedSha256": "31e859e58426031a15d72cd3697009a43acb25767150d27d13b047352544c8ba",
+      "unchanged": true
+    },
+    {
+      "path": "./local-source/catalog.json",
+      "sha256": "33b9617096b597fed7c12006114b3399b9647402c0d30217d2055f4eb7d250e2",
+      "expectedSha256": "33b9617096b597fed7c12006114b3399b9647402c0d30217d2055f4eb7d250e2",
+      "unchanged": true
+    },
+    {
+      "path": "./local-source/asset-cache.js",
+      "sha256": "bf0abe04966db23aa3eaac4ea1650db51ecb0b6d167d36b198ba109dafb0a056",
+      "expectedSha256": "bf0abe04966db23aa3eaac4ea1650db51ecb0b6d167d36b198ba109dafb0a056",
+      "unchanged": true
+    }
+  ],
+  "originalFilesAllUnchanged": true,
+  "variants": [
+    {
+      "file": "water-latent-2048.onnx",
+      "sha256": "da7cc4ac4888c200bc791b81715ffaf9cd5f251bdb604cb78e34296766ba172f",
+      "nodeCount": 575,
+      "learnedInitializerCount": 74,
+      "allLearnedInitializersByteIdentical": true,
+      "changedInitializerNames": [
+        "/Constant_182_output_0",
+        "/ScatterND_output_0"
+      ]
+    },
+    {
+      "file": "water-latent-4096.onnx",
+      "sha256": "767e814a3e2ada98f1f51eef9469e4d40d1de1675380bf4c51e13445bd2e127e",
+      "nodeCount": 575,
+      "learnedInitializerCount": 74,
+      "allLearnedInitializersByteIdentical": true,
+      "changedInitializerNames": []
+    }
+  ],
+  "scope": "Five original app/runtime/catalog/cache files plus the reassembled model SHA and all model.* learned initializers. Other original directories were not modified or globally integrity-checked."
+}

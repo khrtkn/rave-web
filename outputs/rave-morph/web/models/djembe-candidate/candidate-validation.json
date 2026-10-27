@@ -1,0 +1,109 @@
+{
+  "sourceSha256": "ea94557a8d9b40f22a1dadbc93ab98f46144a68ce0bed1403a1558a2d1007f16",
+  "totalEncoderStride": 2048,
+  "frameSize": 2048,
+  "additionalShiftSamples": 1360,
+  "noise": "Both explicit noise inputs zero",
+  "warmupExcludedSamples": 98304,
+  "comparedSamples": 162480,
+  "alignedError": {
+    "max_abs": 4.737557901535183e-09,
+    "rms": 2.183524392415981e-10
+  },
+  "medianNativeMs": 2.1789794991491362,
+  "p95NativeMs": 3.2511664903722703,
+  "stateCount": 39,
+  "retainedLatentDimensions": 4,
+  "passed": true,
+  "referenceOutputRmsAfterWarmup": 2.9275788655143297e-05,
+  "streamOutputPeakAfterWarmup": 0.00010318533895770088,
+  "alignedSameExplicitRandomNoiseError": {
+    "max_abs": 0.0004582405090332031,
+    "rms": 1.5792320223803516e-05
+  },
+  "randomNoiseParityNote": "Measured float32 long-signal versus short-block difference; exceeds the zero-noise strict threshold. Retained as experimental evidence, not reported as exact parity.",
+  "randomNoiseReferenceRms": 1.7387834488350784,
+  "independentFourAxisTests": [
+    {
+      "dimension": 1,
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 15.434001922607422,
+          "rms": 1.6586233890673325
+        },
+        "finite": true
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 2.2462476789951324,
+          "rms": 0.1308392025810737
+        },
+        "finite": true
+      }
+    },
+    {
+      "dimension": 2,
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 13.09776258468628,
+          "rms": 1.4712403227910757
+        },
+        "finite": true
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 1.3667712211608887,
+          "rms": 0.08676551553513724
+        },
+        "finite": true
+      }
+    },
+    {
+      "dimension": 3,
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 16.829555988311768,
+          "rms": 1.2932858883790963
+        },
+        "finite": true
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 2.136654496192932,
+          "rms": 0.09515800468596947
+        },
+        "finite": true
+      }
+    },
+    {
+      "dimension": 4,
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 12.760699272155762,
+          "rms": 0.8393403049749182
+        },
+        "finite": true
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "max_abs": 1.0663797855377197,
+          "rms": 0.06851275759692292
+        },
+        "finite": true
+      }
+    }
+  ],
+  "independentAxisNoise": "All comparisons use identical explicit normal-noise tensors and identical warm state; exactly one gain or bias changes after frame 48.",
+  "resetOutputAndAllStateTensorsBitwiseIdentical": true,
+  "allOriginalInitializersByteIdentical": true,
+  "originalInitializerCount": 46,
+  "projectionInverseTransposeMaxError": 0.0
+}

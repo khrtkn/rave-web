@@ -1,0 +1,324 @@
+{
+  "environment": {
+    "torch": "2.5.0",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "threads": 1
+  },
+  "source512ModelSha256": "01099b4120d451f66300c91b4c02030622688bb75b9c20e6ca0e616348c7d342",
+  "checkpointSha256": "218518cb0f7c2670a9cd3973c3e2972632893f599deacc851998b372a8f8a22e",
+  "configSha256": "975e0e8615204af6c9f8aa901275ac634d70f60011c898dbc103e1e4fb09ccb0",
+  "sourceWeightAudit": "../organ-512/native-validation.json",
+  "sourceForwardAudit": "../organ-512/source-forward-audit.json",
+  "sourceStateLoadMissingKeys": [
+    "latent_valid_crop"
+  ],
+  "allLearnedStateLoaded": true,
+  "all512InitializersBitwiseIdentical": true,
+  "initializerCount": 74,
+  "sampleRate": 48000,
+  "frameSize": 1024,
+  "encoderStrideSamples": 512,
+  "encodedLatentShape": [
+    1,
+    128,
+    2
+  ],
+  "controlsShape": [
+    1,
+    6,
+    1
+  ],
+  "stateCount": 36,
+  "samplesTested": 288768,
+  "nativeLongVsStreamError": {
+    "maxAbs": 0.0,
+    "rms": 0.0
+  },
+  "native512Vs1024StreamError": {
+    "maxAbs": 3.129243850708008e-07,
+    "rms": 3.850247905475055e-08
+  },
+  "onnxVsNativeStreamError": {
+    "maxAbs": 1.7061829566955566e-06,
+    "rms": 1.5155686224896523e-07
+  },
+  "onnx512Vs1024StreamError": {
+    "maxAbs": 1.7657876014709473e-06,
+    "rms": 1.5158262838079752e-07
+  },
+  "onnx512Vs1024FinalStates": {
+    "state_0": {
+      "maxAbs": 0.0,
+      "rms": 0.0
+    },
+    "state_1": {
+      "maxAbs": 2.421438694000244e-07,
+      "rms": 4.730219344516876e-08
+    },
+    "state_2": {
+      "maxAbs": 7.450580596923828e-09,
+      "rms": 1.5614280254725305e-09
+    },
+    "state_3": {
+      "maxAbs": 1.5133991837501526e-09,
+      "rms": 3.22322381724765e-10
+    },
+    "state_4": {
+      "maxAbs": 5.034962669014931e-09,
+      "rms": 1.2727991035898622e-09
+    },
+    "state_5": {
+      "maxAbs": 9.511131793260574e-08,
+      "rms": 8.594627903639319e-09
+    },
+    "state_6": {
+      "maxAbs": 4.866160452365875e-08,
+      "rms": 1.1048416782293404e-08
+    },
+    "state_7": {
+      "maxAbs": 2.08965502679348e-07,
+      "rms": 2.891936630578855e-08
+    },
+    "state_8": {
+      "maxAbs": 7.259659469127655e-07,
+      "rms": 9.490102839529068e-08
+    },
+    "state_9": {
+      "maxAbs": 1.4281831681728363e-06,
+      "rms": 1.0209660546344529e-07
+    },
+    "state_10": {
+      "maxAbs": 2.3774337023496628e-06,
+      "rms": 2.5457743041939215e-07
+    },
+    "state_11": {
+      "maxAbs": 7.641501724720001e-07,
+      "rms": 1.0894560156236731e-07
+    },
+    "state_12": {
+      "maxAbs": 8.260831236839294e-07,
+      "rms": 8.953693141853673e-08
+    },
+    "state_13": {
+      "maxAbs": 1.5050172805786133e-06,
+      "rms": 8.452312034547063e-08
+    },
+    "state_14": {
+      "maxAbs": 2.209097146987915e-06,
+      "rms": 3.3515765194594394e-07
+    },
+    "state_15": {
+      "maxAbs": 2.9355287551879883e-06,
+      "rms": 2.8343163748875845e-07
+    },
+    "state_16": {
+      "maxAbs": 2.9653310775756836e-06,
+      "rms": 3.920920419194876e-07
+    },
+    "state_17": {
+      "maxAbs": 6.012618541717529e-06,
+      "rms": 1.317150873734009e-06
+    },
+    "state_18": {
+      "maxAbs": 1.043081283569336e-05,
+      "rms": 1.918546107382329e-06
+    },
+    "state_19": {
+      "maxAbs": 2.3365020751953125e-05,
+      "rms": 2.7213538565663557e-06
+    },
+    "state_20": {
+      "maxAbs": 1.811981201171875e-05,
+      "rms": 1.8327493926704322e-06
+    },
+    "state_21": {
+      "maxAbs": 5.543231964111328e-06,
+      "rms": 7.659611309261141e-07
+    },
+    "state_22": {
+      "maxAbs": 7.033348083496094e-06,
+      "rms": 7.055783592576131e-07
+    },
+    "state_23": {
+      "maxAbs": 1.5735626220703125e-05,
+      "rms": 2.152177900726219e-06
+    },
+    "state_24": {
+      "maxAbs": 1.952052116394043e-06,
+      "rms": 3.4823759110620755e-07
+    },
+    "state_25": {
+      "maxAbs": 3.0994415283203125e-06,
+      "rms": 4.365804477692946e-07
+    },
+    "state_26": {
+      "maxAbs": 1.564621925354004e-05,
+      "rms": 7.815057248581829e-07
+    },
+    "state_27": {
+      "maxAbs": 2.1457672119140625e-05,
+      "rms": 2.126042251094219e-06
+    },
+    "state_28": {
+      "maxAbs": 1.6689300537109375e-06,
+      "rms": 3.4843428015793746e-07
+    },
+    "state_29": {
+      "maxAbs": 2.3562461137771606e-06,
+      "rms": 4.3249835810738595e-07
+    },
+    "state_30": {
+      "maxAbs": 2.8191134333610535e-06,
+      "rms": 3.77913735624964e-07
+    },
+    "state_31": {
+      "maxAbs": 2.1494925022125244e-06,
+      "rms": 6.86520219669569e-07
+    },
+    "state_32": {
+      "maxAbs": 7.599592208862305e-07,
+      "rms": 2.1133894246826047e-07
+    },
+    "state_33": {
+      "maxAbs": 1.1026859283447266e-06,
+      "rms": 2.7634221504902504e-07
+    },
+    "state_34": {
+      "maxAbs": 1.7583370208740234e-06,
+      "rms": 3.5190451447808163e-07
+    },
+    "state_35": {
+      "maxAbs": 2.086162567138672e-06,
+      "rms": 5.437243567747398e-07
+    }
+  },
+  "additionalStreamingShiftSamples": 0,
+  "sourceAbsoluteAlignmentSamples": null,
+  "nativeStreamMs": {
+    "median": 3.027291502803564,
+    "p95": 3.561016907042358,
+    "max": 3.768457972910255,
+    "measuredFrames": 234
+  },
+  "ortStreamMs": {
+    "median": 4.195479486952536,
+    "p95": 4.590235653449781,
+    "max": 8.09341698186472,
+    "measuredFrames": 234
+  },
+  "comparison512NativeMs": {
+    "median": 2.052333002211526,
+    "p95": 2.5695039410493337,
+    "max": 4.435709008248523,
+    "measuredFrames": 468
+  },
+  "comparison512OrtMs": {
+    "median": 3.099895504419692,
+    "p95": 3.7692748985136855,
+    "max": 5.233917006989941,
+    "measuredFrames": 468
+  },
+  "outputStats": {
+    "peak": 0.16582539677619934,
+    "rms": 0.04451865354253974,
+    "finite": true
+  },
+  "individualPcaBiasChecks": [
+    {
+      "dimension": 1,
+      "bias": 0.5,
+      "difference": {
+        "maxAbs": 0.019753463566303253,
+        "rms": 0.0054486710201327665
+      },
+      "finite": true
+    },
+    {
+      "dimension": 2,
+      "bias": 0.5,
+      "difference": {
+        "maxAbs": 0.03686011582612991,
+        "rms": 0.007933590329635764
+      },
+      "finite": true
+    },
+    {
+      "dimension": 3,
+      "bias": 0.5,
+      "difference": {
+        "maxAbs": 0.01760638877749443,
+        "rms": 0.00462477793876003
+      },
+      "finite": true
+    },
+    {
+      "dimension": 4,
+      "bias": 0.5,
+      "difference": {
+        "maxAbs": 0.017579760402441025,
+        "rms": 0.0037968706863763363
+      },
+      "finite": true
+    },
+    {
+      "dimension": 5,
+      "bias": 0.5,
+      "difference": {
+        "maxAbs": 0.01579107902944088,
+        "rms": 0.004023651893985999
+      },
+      "finite": true
+    },
+    {
+      "dimension": 6,
+      "bias": 0.5,
+      "difference": {
+        "maxAbs": 0.013985583558678627,
+        "rms": 0.00456341512063215
+      },
+      "finite": true
+    }
+  ],
+  "onnxBytes": 51575077,
+  "onnxSha256": "5492cae9528458e15ece3c2e6ec73c2d20edc99f66e7e2ff31538eb5e4c1422b",
+  "fixture": {
+    "version": 1,
+    "model": "organ-causal-1024",
+    "modelSha256": "5492cae9528458e15ece3c2e6ec73c2d20edc99f66e7e2ff31538eb5e4c1422b",
+    "frameSize": 1024,
+    "sampleRate": 48000,
+    "frames": 4,
+    "channels": 1,
+    "samples": 4096,
+    "format": "IEEE754 little-endian float32 mono, no header",
+    "initialStates": "all zero",
+    "allNoiseInputs": 0,
+    "latentGain": 1,
+    "latentBias": 0,
+    "warmupFrames": 0,
+    "outputAlignment": "candidate first4 raw1024 packets, no warmup/shift/crop/fade/limiter",
+    "tolerance": {
+      "maxAbs": 4.487733840942383e-05,
+      "rms": 3.194475579616226e-05
+    },
+    "nativeOutputStats": {
+      "peak": 0.4487733840942383,
+      "rms": 0.1597237789808113,
+      "finite": true
+    },
+    "resetOutputAndAllStatesBitwiseIdentical": true,
+    "input": {
+      "file": "parity-input.f32",
+      "bytes": 16384,
+      "sha256": "23fb26e11e9d3387e1bc7b85e0d6b354927643ffc67ba04dfb19da2b05047d60"
+    },
+    "expectedOutput": {
+      "file": "parity-expected.f32",
+      "bytes": 16384,
+      "sha256": "bc9f7c8495f1f7e48a793b239b832973dd211e260bbc41b4e8cc13044770a401"
+    }
+  },
+  "passed": true
+}

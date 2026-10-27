@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "model": "organ-causal-512",
+  "modelSha256": "01099b4120d451f66300c91b4c02030622688bb75b9c20e6ca0e616348c7d342",
+  "frameSize": 512,
+  "sampleRate": 48000,
+  "frames": 8,
+  "channels": 1,
+  "samples": 4096,
+  "format": "IEEE754 little-endian float32 mono, no header",
+  "initialStates": "all zero",
+  "allNoiseInputs": 0,
+  "latentGain": 1,
+  "latentBias": 0,
+  "warmupFrames": 0,
+  "outputAlignment": "candidate first8 raw packets, no warmup/shift/crop/fade/limiter",
+  "tolerance": {
+    "maxAbs": 4.487736523151398e-05,
+    "rms": 3.194475828511866e-05
+  },
+  "nativeOutputStats": {
+    "peak": 0.44877365231513977,
+    "rms": 0.1597237914255933,
+    "finite": true
+  },
+  "resetOutputAndAllStatesBitwiseIdentical": true,
+  "input": {
+    "file": "parity-input.f32",
+    "bytes": 16384,
+    "sha256": "23fb26e11e9d3387e1bc7b85e0d6b354927643ffc67ba04dfb19da2b05047d60"
+  },
+  "expectedOutput": {
+    "file": "parity-expected.f32",
+    "bytes": 16384,
+    "sha256": "1bdf0046fa35b48cc77b9dc9fbf9d3ccfefd7f86d45e729a5c03a3b4130b40ee"
+  }
+}

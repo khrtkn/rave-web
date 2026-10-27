@@ -1,0 +1,432 @@
+{
+  "id": "water-latent-2048",
+  "name": "Water · RAVE latent (2048)",
+  "url": "water-latent-2048.onnx",
+  "sampleRate": 48000,
+  "frameSize": 2048,
+  "audioInput": "audio",
+  "audioOutput": "output",
+  "audioInputShape": [
+    1,
+    1,
+    2048
+  ],
+  "audioOutputShape": [
+    1,
+    1,
+    2048
+  ],
+  "dtype": "float32",
+  "latentGainInput": "latent_gain",
+  "latentBiasInput": "latent_bias",
+  "latentShape": [
+    1,
+    16,
+    1
+  ],
+  "latentDimensions": 16,
+  "exposedDimensions": 6,
+  "latentCoordinateSystem": "retained learned gimbal-affine latent coordinates; not PCA",
+  "latentSourceChannels": [
+    97,
+    86,
+    120,
+    10,
+    55,
+    60,
+    1,
+    72,
+    25,
+    32,
+    88,
+    114,
+    66,
+    49,
+    59,
+    24
+  ],
+  "neutralGain": 1,
+  "neutralBias": 0,
+  "noiseInputs": [
+    {
+      "name": "encode_noise",
+      "shape": [
+        1,
+        128,
+        1
+      ],
+      "distribution": "normal"
+    },
+    {
+      "name": "decode_noise",
+      "shape": [
+        1,
+        128,
+        1
+      ],
+      "distribution": "normal"
+    },
+    {
+      "name": "synth_noise",
+      "shape": [
+        1,
+        2,
+        16,
+        64
+      ],
+      "distribution": "uniform"
+    }
+  ],
+  "states": [
+    {
+      "input": "state_0",
+      "output": "next_state_0",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "input": "state_1",
+      "output": "next_state_1",
+      "shape": [
+        1,
+        16,
+        6
+      ]
+    },
+    {
+      "input": "state_2",
+      "output": "next_state_2",
+      "shape": [
+        1,
+        96,
+        2
+      ]
+    },
+    {
+      "input": "state_3",
+      "output": "next_state_3",
+      "shape": [
+        1,
+        96,
+        3
+      ]
+    },
+    {
+      "input": "state_4",
+      "output": "next_state_4",
+      "shape": [
+        1,
+        192,
+        2
+      ]
+    },
+    {
+      "input": "state_5",
+      "output": "next_state_5",
+      "shape": [
+        1,
+        192,
+        3
+      ]
+    },
+    {
+      "input": "state_6",
+      "output": "next_state_6",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_7",
+      "output": "next_state_7",
+      "shape": [
+        1,
+        384,
+        3
+      ]
+    },
+    {
+      "input": "state_8",
+      "output": "next_state_8",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_9",
+      "output": "next_state_9",
+      "shape": [
+        1,
+        384,
+        3
+      ]
+    },
+    {
+      "input": "state_10",
+      "output": "next_state_10",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_11",
+      "output": "next_state_11",
+      "shape": [
+        1,
+        384,
+        3
+      ]
+    },
+    {
+      "input": "state_12",
+      "output": "next_state_12",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_13",
+      "output": "next_state_13",
+      "shape": [
+        1,
+        384,
+        5
+      ]
+    },
+    {
+      "input": "state_14",
+      "output": "next_state_14",
+      "shape": [
+        1,
+        768,
+        2
+      ]
+    },
+    {
+      "input": "state_15",
+      "output": "next_state_15",
+      "shape": [
+        1,
+        128,
+        2
+      ]
+    },
+    {
+      "input": "state_16",
+      "output": "next_state_16",
+      "shape": [
+        1,
+        768,
+        1
+      ]
+    },
+    {
+      "input": "state_17",
+      "output": "next_state_17",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_18",
+      "output": "next_state_18",
+      "shape": [
+        1,
+        384,
+        6
+      ]
+    },
+    {
+      "input": "state_19",
+      "output": "next_state_19",
+      "shape": [
+        1,
+        384,
+        1
+      ]
+    },
+    {
+      "input": "state_20",
+      "output": "next_state_20",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_21",
+      "output": "next_state_21",
+      "shape": [
+        1,
+        384,
+        6
+      ]
+    },
+    {
+      "input": "state_22",
+      "output": "next_state_22",
+      "shape": [
+        1,
+        384,
+        1
+      ]
+    },
+    {
+      "input": "state_23",
+      "output": "next_state_23",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_24",
+      "output": "next_state_24",
+      "shape": [
+        1,
+        384,
+        6
+      ]
+    },
+    {
+      "input": "state_25",
+      "output": "next_state_25",
+      "shape": [
+        1,
+        384,
+        1
+      ]
+    },
+    {
+      "input": "state_26",
+      "output": "next_state_26",
+      "shape": [
+        1,
+        384,
+        2
+      ]
+    },
+    {
+      "input": "state_27",
+      "output": "next_state_27",
+      "shape": [
+        1,
+        384,
+        6
+      ]
+    },
+    {
+      "input": "state_28",
+      "output": "next_state_28",
+      "shape": [
+        1,
+        384,
+        1
+      ]
+    },
+    {
+      "input": "state_29",
+      "output": "next_state_29",
+      "shape": [
+        1,
+        192,
+        2
+      ]
+    },
+    {
+      "input": "state_30",
+      "output": "next_state_30",
+      "shape": [
+        1,
+        192,
+        6
+      ]
+    },
+    {
+      "input": "state_31",
+      "output": "next_state_31",
+      "shape": [
+        1,
+        192,
+        1
+      ]
+    },
+    {
+      "input": "state_32",
+      "output": "next_state_32",
+      "shape": [
+        1,
+        96,
+        2
+      ]
+    },
+    {
+      "input": "state_33",
+      "output": "next_state_33",
+      "shape": [
+        1,
+        96,
+        6
+      ]
+    },
+    {
+      "input": "state_34",
+      "output": "next_state_34",
+      "shape": [
+        1,
+        96,
+        6
+      ]
+    },
+    {
+      "input": "state_35",
+      "output": "next_state_35",
+      "shape": [
+        1,
+        96,
+        2
+      ]
+    },
+    {
+      "input": "state_36",
+      "output": "next_state_36",
+      "shape": [
+        1,
+        16,
+        16
+      ]
+    }
+  ],
+  "stateReset": "zeros",
+  "streaming": true,
+  "overlapSamples": 0,
+  "blockDurationMs": 42.666666666666664,
+  "modelDelaySamples": null,
+  "latencyNote": "Block duration only; native model delay and physical E2E latency have not been measured.",
+  "opset": 17,
+  "irVersion": 8,
+  "bytes": 103377210,
+  "sha256": "da7cc4ac4888c200bc791b81715ffaf9cd5f251bdb604cb78e34296766ba172f",
+  "sourceSha256": "b6c84085f475b3bddf69eb2ee0a85836230e0462d7d112cc3a2cb6e497914e47",
+  "sourceURL": "https://huggingface.co/Intelligent-Instruments-Lab/rave-models",
+  "author": "IIL / Pond Brain",
+  "license": "CC BY-NC 4.0",
+  "licenseURL": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "adaptation": "Added latent gain/bias inputs; 2048 variant reduces block-specific sign mask and synth reshape constants; all learned weights unchanged",
+  "validatedNative": true
+}

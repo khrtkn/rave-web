@@ -1,0 +1,257 @@
+{
+  "fixture": {
+    "version": 1,
+    "model": "organ-causal-512",
+    "modelSha256": "01099b4120d451f66300c91b4c02030622688bb75b9c20e6ca0e616348c7d342",
+    "frameSize": 512,
+    "sampleRate": 48000,
+    "frames": 8,
+    "channels": 1,
+    "samples": 4096,
+    "format": "IEEE754 little-endian float32 mono, no header",
+    "initialStates": "all zero",
+    "allNoiseInputs": 0,
+    "latentGain": 1,
+    "latentBias": 0,
+    "warmupFrames": 0,
+    "outputAlignment": "candidate first8 raw packets, no warmup/shift/crop/fade/limiter",
+    "tolerance": {
+      "maxAbs": 4.487736523151398e-05,
+      "rms": 3.194475828511866e-05
+    },
+    "nativeOutputStats": {
+      "peak": 0.44877365231513977,
+      "rms": 0.1597237914255933,
+      "finite": true
+    },
+    "resetOutputAndAllStatesBitwiseIdentical": true,
+    "input": {
+      "file": "parity-input.f32",
+      "bytes": 16384,
+      "sha256": "23fb26e11e9d3387e1bc7b85e0d6b354927643ffc67ba04dfb19da2b05047d60"
+    },
+    "expectedOutput": {
+      "file": "parity-expected.f32",
+      "bytes": 16384,
+      "sha256": "1bdf0046fa35b48cc77b9dc9fbf9d3ccfefd7f86d45e729a5c03a3b4130b40ee"
+    }
+  },
+  "independentSixAxes": [
+    {
+      "dimension": 1,
+      "coordinate": "checkpoint PCA direction 1",
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.023285865783691406,
+          "rms": 0.004364734534077019
+        },
+        "outputStats": {
+          "peak": 0.12774938344955444,
+          "rms": 0.04096128996425798,
+          "finite": true
+        }
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.0234716534614563,
+          "rms": 0.005274520931162096
+        },
+        "outputStats": {
+          "peak": 0.16882725059986115,
+          "rms": 0.04862776651846792,
+          "finite": true
+        }
+      }
+    },
+    {
+      "dimension": 2,
+      "coordinate": "checkpoint PCA direction 2",
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.08329938352108002,
+          "rms": 0.020195296539197122
+        },
+        "outputStats": {
+          "peak": 0.21468454599380493,
+          "rms": 0.06268804872281722,
+          "finite": true
+        }
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.03931844234466553,
+          "rms": 0.010551981906292907
+        },
+        "outputStats": {
+          "peak": 0.18256738781929016,
+          "rms": 0.05394276570307912,
+          "finite": true
+        }
+      }
+    },
+    {
+      "dimension": 3,
+      "coordinate": "checkpoint PCA direction 3",
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.01703394204378128,
+          "rms": 0.003791585739787415
+        },
+        "outputStats": {
+          "peak": 0.14386124908924103,
+          "rms": 0.043448052335577726,
+          "finite": true
+        }
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.015141971409320831,
+          "rms": 0.003716073341525862
+        },
+        "outputStats": {
+          "peak": 0.1538776457309723,
+          "rms": 0.04701274684816494,
+          "finite": true
+        }
+      }
+    },
+    {
+      "dimension": 4,
+      "coordinate": "checkpoint PCA direction 4",
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.013204015791416168,
+          "rms": 0.0026036299172121553
+        },
+        "outputStats": {
+          "peak": 0.13499803841114044,
+          "rms": 0.04232711502747127,
+          "finite": true
+        }
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.009125791490077972,
+          "rms": 0.0018578384410162074
+        },
+        "outputStats": {
+          "peak": 0.13771650195121765,
+          "rms": 0.04299760679011327,
+          "finite": true
+        }
+      }
+    },
+    {
+      "dimension": 5,
+      "coordinate": "checkpoint PCA direction 5",
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.041601575911045074,
+          "rms": 0.007558386322484975
+        },
+        "outputStats": {
+          "peak": 0.12250381708145142,
+          "rms": 0.03780201538840797,
+          "finite": true
+        }
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.018692873418331146,
+          "rms": 0.004205339076961033
+        },
+        "outputStats": {
+          "peak": 0.13175757229328156,
+          "rms": 0.04006623938305359,
+          "finite": true
+        }
+      }
+    },
+    {
+      "dimension": 6,
+      "coordinate": "checkpoint PCA direction 6",
+      "gain": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.02877253293991089,
+          "rms": 0.005435582877763033
+        },
+        "outputStats": {
+          "peak": 0.13050071895122528,
+          "rms": 0.039846610574184385,
+          "finite": true
+        }
+      },
+      "bias": {
+        "value": 0.5,
+        "difference": {
+          "maxAbs": 0.015558049082756042,
+          "rms": 0.003951334454152546
+        },
+        "outputStats": {
+          "peak": 0.15632502734661102,
+          "rms": 0.04721248492235726,
+          "finite": true
+        }
+      }
+    }
+  ],
+  "neutralStats": {
+    "peak": 0.16582581400871277,
+    "rms": 0.044518640102732064,
+    "finite": true
+  },
+  "changedStats": {
+    "peak": 0.17065571248531342,
+    "rms": 0.04654852776319057,
+    "finite": true
+  },
+  "demo": {
+    "seconds": 6.016,
+    "input": "Locally synthesized harmonic note/envelope sequence; first1second is silent initialization. Actual pretrained model performs all conversion.",
+    "noise": "Identical explicit standard-normal posterior samples, seed20261026",
+    "control": "PCA1 bias+0.5 from3to5seconds, neutral before/after; current state is retained",
+    "format": "WAV IEEE float32, raw model levels, no normalization/limiter",
+    "files": {
+      "input": {
+        "file": "native-demo-input.wav",
+        "stats": {
+          "peak": 0.13473573327064514,
+          "rms": 0.04553754852727279,
+          "finite": true
+        },
+        "sha256": "42d3728b1586fc6fa3942fe08a00a2d4c3f710c4e24d8dfc256272ae48e3906f"
+      },
+      "neutral": {
+        "file": "native-demo-neutral.wav",
+        "stats": {
+          "peak": 0.16582581400871277,
+          "rms": 0.044518640102732064,
+          "finite": true
+        },
+        "sha256": "6e74470167513ab47e48cebb4c00ef306ef46f73715933a353f4b347f101a418"
+      },
+      "knob-change": {
+        "file": "native-demo-knob-change.wav",
+        "stats": {
+          "peak": 0.17065571248531342,
+          "rms": 0.04654852776319057,
+          "finite": true
+        },
+        "sha256": "9c2e49473d6c8d42a0f0230b3e1a2f70d96eeba4e2471df859cfc554a5aab1e2"
+      }
+    }
+  },
+  "scope": "Native runtime and numerical/control behavior. Browser timings/physical audio latency and subjective quality require separate validation.",
+  "passed": true
+}

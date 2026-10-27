@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "model": "water-latent-2048",
+  "modelSha256": "da7cc4ac4888c200bc791b81715ffaf9cd5f251bdb604cb78e34296766ba172f",
+  "sampleRate": 48000,
+  "frameSize": 2048,
+  "frames": 8,
+  "channels": 1,
+  "samples": 16384,
+  "format": "IEEE 754 little-endian float32, contiguous mono PCM, no header",
+  "input": {
+    "file": "parity-input.f32",
+    "bytes": 65536,
+    "sha256": "95fd612c9e37df6907a4a21c4f56cc18967e0bdc0ef35bd27c8a8dca960b0d26"
+  },
+  "expectedOutput": {
+    "file": "parity-expected.f32",
+    "bytes": 65536,
+    "sha256": "5d1d3f898095ed5aa6d9940f055a16b4f0bd32d45eb49ca839aef9a1ca561e46"
+  },
+  "initialStates": "all state_* tensors zero",
+  "latentGain": 1.0,
+  "latentBias": 0.0,
+  "allNoiseInputs": 0.0,
+  "warmupFrames": 0,
+  "outputAlignment": "same packet order; no crop, compensation, overlap, fade or limiter",
+  "tolerance": {
+    "maxAbs": 0.0002,
+    "rms": 2e-05
+  },
+  "toleranceMeaning": "Compare all 16384 raw output samples against native ORT float32; this is a browser parity criterion, not proof it already passed in a browser",
+  "nativeOutputPeak": 0.2855502665042877,
+  "nativeResetOutputError": {
+    "max_abs": 0.0,
+    "rms": 0.0
+  },
+  "nativeResetAllStateTensorsIdentical": true
+}

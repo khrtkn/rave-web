@@ -1,0 +1,12 @@
+{
+  "name": "rave-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Noncommercial browser-native RAVE research prototype and reproducible ONNX exports",
+  "license": "CC-BY-NC-4.0",
+  "scripts": {
+    "test": "node --test outputs/rave-morph-lowlatency/tests/*.test.mjs outputs/rave-morph/tests/*.test.mjs",
+    "verify:assets": "python3 scripts/fetch-assets.py --verify"
+  },
+  "engines": { "node": ">=20" }
+}

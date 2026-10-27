@@ -1,0 +1,29 @@
+{
+  "filesAndRepositories": [
+    {
+      "file": "config.gin",
+      "sourceURL": "https://huggingface.co/Intelligent-Instruments-Lab/rave-models/raw/c25a03d625840c40cd3a48779ed72f2a1947d7b4/checkpoints/organ_archive_b512_r48000/config.gin",
+      "bytes": 7087,
+      "sha256": "975e0e8615204af6c9f8aa901275ac634d70f60011c898dbc103e1e4fb09ccb0"
+    },
+    {
+      "file": "last.ckpt",
+      "sourceURL": "https://huggingface.co/Intelligent-Instruments-Lab/rave-models/resolve/c25a03d625840c40cd3a48779ed72f2a1947d7b4/checkpoints/organ_archive_b512_r48000/version_1/checkpoints/last.ckpt",
+      "bytes": 669961497,
+      "sha256": "218518cb0f7c2670a9cd3973c3e2972632893f599deacc851998b372a8f8a22e"
+    },
+    {
+      "repository": "https://github.com/victor-shepardson/RAVE.git",
+      "directory": "RAVE",
+      "commit": "ab7d40d6740130f0268debbc4b6633318357ea7d"
+    },
+    {
+      "repository": "https://github.com/victor-shepardson/cached_conv.git",
+      "directory": "cached_conv",
+      "commit": "d2da85992d030dcf1dd8ebf318c3d69753729295"
+    }
+  ],
+  "license": "CC BY-NC 4.0",
+  "modelLicenseSource": "https://huggingface.co/Intelligent-Instruments-Lab/rave-models/blob/c25a03d625840c40cd3a48779ed72f2a1947d7b4/README.md",
+  "scope": "Anonymous public GET and pinned public Git source only; no Neutone assets or authenticated endpoints."
+}

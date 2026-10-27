@@ -1,0 +1,19 @@
+# Local builds and private verification data
+work/
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+.cache/
+validation/
+*.ckpt
+*.npz
+*.onnx
+*.wasm
+*.wav
+*.partial
+# Runtime vendor files are restored from the checksummed GitHub Release.
+outputs/rave-morph/web/vendor/ort/*
+!outputs/rave-morph/web/vendor/ort/LICENSE
+!outputs/rave-morph/web/vendor/ort/ThirdPartyNotices.txt
+!outputs/rave-morph/web/vendor/ort/provenance.json

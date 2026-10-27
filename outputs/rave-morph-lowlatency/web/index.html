@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#eeeae3">
+  <title>RAVE Morph — 低遅延版</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <header class="masthead"><div class="brand">RAVE <span>MORPH</span><small>LOW LATENCY / EXPERIMENT 02</small></div><div class="local-badge"><i></i> AUDIO STAYS HERE</div></header>
+    <section class="intro"><h1>音の輪郭を、動かす。</h1><p>音声をRAVEの潜在空間へ。座標のノブから、別の響きを探します。</p></section>
+    <section class="instrument" aria-label="音色変換">
+      <div class="engine-bar"><div><span class="eyebrow">TIMBRE ENGINE</span><strong id="model-title">RAVE / 準備中</strong></div><span class="status" id="status" role="status">モデルを選択</span></div>
+      <div class="source-row">
+        <label>音色モデル<select id="model-select" aria-label="音色モデル"></select></label>
+        <label>処理単位<select id="variant-select" aria-label="処理単位"></select></label>
+        <label>推論環境<select id="backend"><option value="wasm">WASM / CPU・1 thread</option><option value="wasm-2">WASM / CPU・2 threads</option><option value="wasm-4">WASM / CPU・4 threads</option><option value="webgpu-retain">WebGPU / GPU状態保持（推奨・実験）</option><option value="webgpu">WebGPU / 互換経路（比較）</option></select></label>
+        <button id="load-model" class="secondary">モデルをロード</button>
+      </div>
+      <div class="input-panel">
+        <div class="input-choice"><span class="eyebrow">01 / INPUT</span><div class="segmented" role="group" aria-label="入力ソース"><button data-source="demo" class="selected" aria-pressed="true">デモ音源</button><button data-source="file" aria-pressed="false">音声ファイル</button><button data-source="microphone" aria-pressed="false">マイク / IF</button></div></div>
+        <div id="demo-options" class="source-options"><span>和音・打音・ノイズを含むローカル生成の入力音</span><button id="preview-dry" class="text-button">原音を聴く</button></div>
+        <div id="file-options" class="source-options" hidden><label class="file-label">音声ファイルを選択<input id="audio-file" type="file" accept="audio/*"></label><span id="file-name">WAV / MP3 など</span></div>
+        <div id="microphone-options" class="source-options" hidden><label>入力デバイス<select id="input-device"><option value="">システムのデフォルト</option></select></label><span>入力を選んで開始。モニターにはヘッドホンを使用。</span></div>
+      </div>
+      <div class="output-row"><label>出力デバイス<select id="output-device" aria-label="出力デバイス"><option value="">システムのデフォルト</option></select></label><button id="refresh-devices" class="text-button">デバイスを更新</button><span>出力先は停止中に選択</span></div><div class="scope-row"><div><span class="scope-label">INPUT</span><canvas id="input-scope" width="600" height="90" aria-label="入力レベルの波形"></canvas></div><div><span class="scope-label">OUTPUT</span><canvas id="output-scope" width="600" height="90" aria-label="出力レベルの波形"></canvas></div></div>
+      <div class="latent-heading"><div><span class="eyebrow">02 / LATENT SPACE</span><span id="latent-description">EncoderとDecoderの間にある、実際の潜在座標を操作</span></div><button id="reset-knobs" class="text-button">ノブを中央に戻す ↺</button></div>
+      <div class="knob-grid" id="knobs"></div>
+      <div class="mix-row"><label class="mix-control">DRY / WET <output id="wet-value">100%</output><input id="wet" type="range" min="0" max="1" step="0.01" value="1"></label><label class="mix-control">OUTPUT <output id="volume-value">35%</output><input id="volume" type="range" min="0" max="1" step="0.01" value="0.35"></label><label class="response-control">ORGAN 応答<select id="latency-profile" aria-label="Organの応答設定"><option value="29.333333333333332">余裕あり / 29.3 ms</option><option value="24">標準 / 24 ms</option><option value="auto">最小待機 / 自動</option></select></label><div class="transport"><button id="start" class="primary" disabled>▶ 変換を開始</button><button id="stop" class="secondary" disabled>■ 停止</button></div></div>
+      <div class="record-row"><button id="record" class="text-button" disabled>● 変換音を録音（最大30秒）</button><button id="save-wet" class="text-button" disabled>Wet WAV ↓</button><button id="save-dry" class="text-button" disabled>Dry WAV ↓</button><span id="record-state">音量調整前の音を32-bit floatで保存</span></div>
+    </section>
+    <section class="performance" aria-label="実測パフォーマンス"><div class="metric"><span>推論 / 平均</span><strong id="metric-inference">—<small>ms</small></strong></div><div class="metric"><span>推論 / p95・最大</span><strong id="metric-tail">—<small>ms</small></strong></div><div class="metric"><span>音声経路 / 平均・p95</span><strong id="metric-latency">—<small>ms</small></strong></div><div class="metric"><span>処理時間 / 音声時間</span><strong id="metric-load">—<small>%</small></strong></div><div class="metric"><span>欠落block 入+出 / 不足ms</span><strong id="metric-drops">—</strong></div></section>
+    <label class="performance-toggle"><input id="performance-mode" type="checkbox" checked> 演奏優先 / 演奏中の表示更新を止める<span>計測は続行し、停止時に結果を表示</span></label><p id="runtime-note" class="caption">経路は開始時に選択します。</p>
+    <p id="metric-note" class="caption">数値はこのブラウザの実測。音声経路の遅延はデバイスとモデル固有の遅延を含みません。CPU / GPU使用率は取得しません。</p>
+    <details class="verification"><summary>モデルの出典・ブラウザ検証</summary><p id="model-info">モデル情報はロード時に表示されます。</p><p>実際のRAVE学習済みモデルを使用する独自試作です。Neutone Morphoのエンジン・重みは使用していません。学習済みモデルはCC BY-NC 4.0。非商用利用と出典表示の条件を保持しています。</p><button id="verify" class="secondary" disabled>実モデルのノブ・状態・速度を検証</button><button id="download-results" class="text-button" disabled>検証JSON ↓</button><button id="download-neutral" class="text-button" disabled>中立WAV ↓</button><button id="download-changed" class="text-button" disabled>ノブ変更WAV ↓</button><pre id="verification-output">未実行</pre></details>
+    <details class="verification"><summary>現在の音声経路の計測データ</summary><pre id="live-metrics">未開始</pre></details>
+    <div id="message" role="alert" hidden></div>
+    <footer><a href="./legacy/">既存版 ↗</a><a href="./benchmark.html">旧・新の連続比較 ↗</a><span>RAVE · ACIDS / IRCAM &amp; model authors</span><a href="./credits.html">出典と利用条件 ↗</a></footer>
+  </main>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

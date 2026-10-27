@@ -1,0 +1,471 @@
+{
+  "id": "organ-causal-512",
+  "name": "Organ · RAVE causal 512 / PCA6",
+  "family": "organ",
+  "familyName": "Organ / IIL",
+  "defaultOutputGain": 0.35,
+  "controlDescription": "学習済みPCA先頭6方向のgain/bias。全128潜在座標を保持し、neutralでは元モデルと同じ処理。",
+  "url": "organ-512/organ-causal-512.onnx",
+  "sampleRate": 48000,
+  "frameSize": 512,
+  "audioInput": "audio",
+  "audioOutput": "output",
+  "audioInputShape": [
+    1,
+    1,
+    512
+  ],
+  "audioOutputShape": [
+    1,
+    1,
+    512
+  ],
+  "dtype": "float32",
+  "latentGainInput": "latent_gain",
+  "latentBiasInput": "latent_bias",
+  "latentShape": [
+    1,
+    6,
+    1
+  ],
+  "latentDimensions": 6,
+  "exposedDimensions": 6,
+  "encodedLatentDimensions": 128,
+  "retainedLatentDimensions": 128,
+  "latentCoordinateSystem": "First six checkpoint PCA directions; additive delta controls preserve all128 posterior coordinates at neutral",
+  "neutralGain": 1,
+  "neutralBias": 0,
+  "noiseInputs": [
+    {
+      "name": "encode_noise",
+      "shape": [
+        1,
+        128,
+        1
+      ],
+      "distribution": "normal"
+    }
+  ],
+  "states": [
+    {
+      "input": "state_0",
+      "output": "next_state_0",
+      "shape": [
+        1,
+        1,
+        256
+      ],
+      "sourceModule": "pqmf.forward_conv",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_1",
+      "output": "next_state_1",
+      "shape": [
+        1,
+        8,
+        32
+      ],
+      "sourceModule": "pqmf.inverse_conv",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_2",
+      "output": "next_state_2",
+      "shape": [
+        1,
+        8,
+        6
+      ],
+      "sourceModule": "encoder.encoder.net.0",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_3",
+      "output": "next_state_3",
+      "shape": [
+        1,
+        64,
+        2
+      ],
+      "sourceModule": "encoder.encoder.net.2.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_4",
+      "output": "next_state_4",
+      "shape": [
+        1,
+        64,
+        6
+      ],
+      "sourceModule": "encoder.encoder.net.4.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_5",
+      "output": "next_state_5",
+      "shape": [
+        1,
+        64,
+        18
+      ],
+      "sourceModule": "encoder.encoder.net.6.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_6",
+      "output": "next_state_6",
+      "shape": [
+        1,
+        64,
+        4
+      ],
+      "sourceModule": "encoder.encoder.net.8",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_7",
+      "output": "next_state_7",
+      "shape": [
+        1,
+        128,
+        2
+      ],
+      "sourceModule": "encoder.encoder.net.10.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_8",
+      "output": "next_state_8",
+      "shape": [
+        1,
+        128,
+        6
+      ],
+      "sourceModule": "encoder.encoder.net.12.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_9",
+      "output": "next_state_9",
+      "shape": [
+        1,
+        128,
+        18
+      ],
+      "sourceModule": "encoder.encoder.net.14.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_10",
+      "output": "next_state_10",
+      "shape": [
+        1,
+        128,
+        4
+      ],
+      "sourceModule": "encoder.encoder.net.16",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_11",
+      "output": "next_state_11",
+      "shape": [
+        1,
+        256,
+        2
+      ],
+      "sourceModule": "encoder.encoder.net.18.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_12",
+      "output": "next_state_12",
+      "shape": [
+        1,
+        256,
+        6
+      ],
+      "sourceModule": "encoder.encoder.net.20.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_13",
+      "output": "next_state_13",
+      "shape": [
+        1,
+        256,
+        18
+      ],
+      "sourceModule": "encoder.encoder.net.22.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_14",
+      "output": "next_state_14",
+      "shape": [
+        1,
+        256,
+        4
+      ],
+      "sourceModule": "encoder.encoder.net.24",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_15",
+      "output": "next_state_15",
+      "shape": [
+        1,
+        512,
+        2
+      ],
+      "sourceModule": "encoder.encoder.net.26.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_16",
+      "output": "next_state_16",
+      "shape": [
+        1,
+        512,
+        6
+      ],
+      "sourceModule": "encoder.encoder.net.28.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_17",
+      "output": "next_state_17",
+      "shape": [
+        1,
+        512,
+        1
+      ],
+      "sourceModule": "encoder.encoder.net.30",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_18",
+      "output": "next_state_18",
+      "shape": [
+        1,
+        1024,
+        2
+      ],
+      "sourceModule": "encoder.encoder.net.32",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_19",
+      "output": "next_state_19",
+      "shape": [
+        1,
+        128,
+        2
+      ],
+      "sourceModule": "decoder.net.0",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_20",
+      "output": "next_state_20",
+      "shape": [
+        1,
+        1024,
+        2
+      ],
+      "sourceModule": "decoder.net.2",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_21",
+      "output": "next_state_21",
+      "shape": [
+        1,
+        512,
+        2
+      ],
+      "sourceModule": "decoder.net.4.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_22",
+      "output": "next_state_22",
+      "shape": [
+        1,
+        512,
+        6
+      ],
+      "sourceModule": "decoder.net.6.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_23",
+      "output": "next_state_23",
+      "shape": [
+        1,
+        512,
+        1
+      ],
+      "sourceModule": "decoder.net.8",
+      "kind": "trained_causal_transpose"
+    },
+    {
+      "input": "state_24",
+      "output": "next_state_24",
+      "shape": [
+        1,
+        256,
+        2
+      ],
+      "sourceModule": "decoder.net.10.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_25",
+      "output": "next_state_25",
+      "shape": [
+        1,
+        256,
+        6
+      ],
+      "sourceModule": "decoder.net.12.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_26",
+      "output": "next_state_26",
+      "shape": [
+        1,
+        256,
+        18
+      ],
+      "sourceModule": "decoder.net.14.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_27",
+      "output": "next_state_27",
+      "shape": [
+        1,
+        256,
+        1
+      ],
+      "sourceModule": "decoder.net.16",
+      "kind": "trained_causal_transpose"
+    },
+    {
+      "input": "state_28",
+      "output": "next_state_28",
+      "shape": [
+        1,
+        128,
+        2
+      ],
+      "sourceModule": "decoder.net.18.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_29",
+      "output": "next_state_29",
+      "shape": [
+        1,
+        128,
+        6
+      ],
+      "sourceModule": "decoder.net.20.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_30",
+      "output": "next_state_30",
+      "shape": [
+        1,
+        128,
+        18
+      ],
+      "sourceModule": "decoder.net.22.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_31",
+      "output": "next_state_31",
+      "shape": [
+        1,
+        128,
+        1
+      ],
+      "sourceModule": "decoder.net.24",
+      "kind": "trained_causal_transpose"
+    },
+    {
+      "input": "state_32",
+      "output": "next_state_32",
+      "shape": [
+        1,
+        64,
+        2
+      ],
+      "sourceModule": "decoder.net.26.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_33",
+      "output": "next_state_33",
+      "shape": [
+        1,
+        64,
+        6
+      ],
+      "sourceModule": "decoder.net.28.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_34",
+      "output": "next_state_34",
+      "shape": [
+        1,
+        64,
+        18
+      ],
+      "sourceModule": "decoder.net.30.aligned.branches.0.net.1",
+      "kind": "causal_conv"
+    },
+    {
+      "input": "state_35",
+      "output": "next_state_35",
+      "shape": [
+        1,
+        64,
+        6
+      ],
+      "sourceModule": "decoder.net.32",
+      "kind": "causal_conv"
+    }
+  ],
+  "stateReset": "zeros",
+  "streaming": true,
+  "overlapSamples": 0,
+  "warmupBlocks": 128,
+  "warmupFrames": 128,
+  "additionalDelaySamples": 0,
+  "dryOffsetSamples": 0,
+  "modelDelaySamples": null,
+  "sourceModelDelaySamples": null,
+  "latencyNote": "True encoder stride512. Native long-reference alignment requires no added shift; original absolute dry/wet/physical latency unmeasured. checkpoint receptive_field right470 is not a delay.",
+  "blockDurationMs": 10.666666666666666,
+  "opset": 17,
+  "irVersion": 8,
+  "bytes": 51572515,
+  "sha256": "01099b4120d451f66300c91b4c02030622688bb75b9c20e6ca0e616348c7d342",
+  "sourceCheckpointSha256": "218518cb0f7c2670a9cd3973c3e2972632893f599deacc851998b372a8f8a22e",
+  "sourceURL": "https://huggingface.co/Intelligent-Instruments-Lab/rave-models/tree/c25a03d625840c40cd3a48779ed72f2a1947d7b4/checkpoints/organ_archive_b512_r48000",
+  "author": "Intelligent Instruments Lab; RAVE by ACIDS / IRCAM; source/export fork by Victor Shepardson",
+  "license": "CC BY-NC 4.0",
+  "licenseURL": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "adaptation": "Causal learned model, 36 explicit past states, posterior Gaussian epsilon input, six PCA delta gain/bias controls. No retraining; original learned state loaded and weight norm folded.",
+  "validatedNative": true,
+  "experimental": true,
+  "parityFixture": "organ-512/parity-fixture.json"
+}

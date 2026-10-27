@@ -1,0 +1,435 @@
+{
+  "version": 1,
+  "defaultModel": "djembe-stateful-2048",
+  "models": [
+    {
+      "id": "djembe-stateful-2048",
+      "name": "Djembe · RAVE 4 latent",
+      "url": "djembe-stateful-2048.onnx",
+      "sampleRate": 48000,
+      "frameSize": 2048,
+      "audioInput": "audio_in",
+      "audioOutput": "audio_out",
+      "audioInputShape": [
+        1,
+        1,
+        2048
+      ],
+      "audioOutputShape": [
+        1,
+        1,
+        2048
+      ],
+      "dtype": "float32",
+      "latentGainInput": "latent_gain",
+      "latentBiasInput": "latent_bias",
+      "latentShape": [
+        1,
+        4,
+        1
+      ],
+      "latentDimensions": 4,
+      "exposedDimensions": 4,
+      "latentCoordinateSystem": "Four retained projected latent coordinates; statistical PCA provenance not established by graph alone",
+      "neutralGain": 1,
+      "neutralBias": 0,
+      "noiseInputs": [
+        {
+          "name": "encode_noise",
+          "shape": [
+            1,
+            16,
+            1
+          ],
+          "distribution": "normal"
+        },
+        {
+          "name": "decode_noise",
+          "shape": [
+            1,
+            12,
+            1
+          ],
+          "distribution": "normal"
+        }
+      ],
+      "states": [
+        {
+          "input": "state_0",
+          "output": "next_state_0",
+          "shape": [
+            1,
+            1,
+            512
+          ]
+        },
+        {
+          "input": "state_1",
+          "output": "next_state_1",
+          "shape": [
+            1,
+            16,
+            6
+          ]
+        },
+        {
+          "input": "state_2",
+          "output": "next_state_2",
+          "shape": [
+            1,
+            32,
+            8
+          ]
+        },
+        {
+          "input": "state_3",
+          "output": "next_state_3",
+          "shape": [
+            1,
+            64,
+            8
+          ]
+        },
+        {
+          "input": "state_4",
+          "output": "next_state_4",
+          "shape": [
+            1,
+            128,
+            8
+          ]
+        },
+        {
+          "input": "state_5",
+          "output": "next_state_5",
+          "shape": [
+            1,
+            256,
+            4
+          ]
+        },
+        {
+          "input": "state_6",
+          "output": "next_state_6",
+          "shape": [
+            1,
+            512,
+            4
+          ]
+        },
+        {
+          "input": "state_7",
+          "output": "next_state_7",
+          "shape": [
+            1,
+            16,
+            6
+          ]
+        },
+        {
+          "input": "state_8",
+          "output": "next_state_8",
+          "shape": [
+            1,
+            512,
+            2
+          ]
+        },
+        {
+          "input": "state_9",
+          "output": "next_state_9",
+          "shape": [
+            1,
+            256,
+            2
+          ]
+        },
+        {
+          "input": "state_10",
+          "output": "next_state_10",
+          "shape": [
+            1,
+            256,
+            2
+          ]
+        },
+        {
+          "input": "state_11",
+          "output": "next_state_11",
+          "shape": [
+            1,
+            256,
+            6
+          ]
+        },
+        {
+          "input": "state_12",
+          "output": "next_state_12",
+          "shape": [
+            1,
+            256,
+            2
+          ]
+        },
+        {
+          "input": "state_13",
+          "output": "next_state_13",
+          "shape": [
+            1,
+            256,
+            10
+          ]
+        },
+        {
+          "input": "state_14",
+          "output": "next_state_14",
+          "shape": [
+            1,
+            256,
+            2
+          ]
+        },
+        {
+          "input": "state_15",
+          "output": "next_state_15",
+          "shape": [
+            1,
+            256,
+            2
+          ]
+        },
+        {
+          "input": "state_16",
+          "output": "next_state_16",
+          "shape": [
+            1,
+            128,
+            2
+          ]
+        },
+        {
+          "input": "state_17",
+          "output": "next_state_17",
+          "shape": [
+            1,
+            128,
+            2
+          ]
+        },
+        {
+          "input": "state_18",
+          "output": "next_state_18",
+          "shape": [
+            1,
+            128,
+            6
+          ]
+        },
+        {
+          "input": "state_19",
+          "output": "next_state_19",
+          "shape": [
+            1,
+            128,
+            2
+          ]
+        },
+        {
+          "input": "state_20",
+          "output": "next_state_20",
+          "shape": [
+            1,
+            128,
+            10
+          ]
+        },
+        {
+          "input": "state_21",
+          "output": "next_state_21",
+          "shape": [
+            1,
+            128,
+            2
+          ]
+        },
+        {
+          "input": "state_22",
+          "output": "next_state_22",
+          "shape": [
+            1,
+            128,
+            2
+          ]
+        },
+        {
+          "input": "state_23",
+          "output": "next_state_23",
+          "shape": [
+            1,
+            64,
+            2
+          ]
+        },
+        {
+          "input": "state_24",
+          "output": "next_state_24",
+          "shape": [
+            1,
+            64,
+            2
+          ]
+        },
+        {
+          "input": "state_25",
+          "output": "next_state_25",
+          "shape": [
+            1,
+            64,
+            6
+          ]
+        },
+        {
+          "input": "state_26",
+          "output": "next_state_26",
+          "shape": [
+            1,
+            64,
+            2
+          ]
+        },
+        {
+          "input": "state_27",
+          "output": "next_state_27",
+          "shape": [
+            1,
+            64,
+            10
+          ]
+        },
+        {
+          "input": "state_28",
+          "output": "next_state_28",
+          "shape": [
+            1,
+            64,
+            2
+          ]
+        },
+        {
+          "input": "state_29",
+          "output": "next_state_29",
+          "shape": [
+            1,
+            64,
+            2
+          ]
+        },
+        {
+          "input": "state_30",
+          "output": "next_state_30",
+          "shape": [
+            1,
+            32,
+            2
+          ]
+        },
+        {
+          "input": "state_31",
+          "output": "next_state_31",
+          "shape": [
+            1,
+            32,
+            2
+          ]
+        },
+        {
+          "input": "state_32",
+          "output": "next_state_32",
+          "shape": [
+            1,
+            32,
+            6
+          ]
+        },
+        {
+          "input": "state_33",
+          "output": "next_state_33",
+          "shape": [
+            1,
+            32,
+            2
+          ]
+        },
+        {
+          "input": "state_34",
+          "output": "next_state_34",
+          "shape": [
+            1,
+            32,
+            10
+          ]
+        },
+        {
+          "input": "state_35",
+          "output": "next_state_35",
+          "shape": [
+            1,
+            32,
+            2
+          ]
+        },
+        {
+          "input": "state_36",
+          "output": "next_state_36",
+          "shape": [
+            1,
+            32,
+            6
+          ]
+        },
+        {
+          "input": "state_37",
+          "output": "next_state_37",
+          "shape": [
+            1,
+            32,
+            2
+          ]
+        },
+        {
+          "input": "state_38",
+          "output": "next_state_38",
+          "shape": [
+            1,
+            16,
+            32
+          ]
+        }
+      ],
+      "stateReset": "zeros",
+      "streaming": true,
+      "overlapSamples": 0,
+      "warmupFrames": 64,
+      "warmupBlocks": 64,
+      "additionalDelaySamples": 1360,
+      "dryOffsetSamples": 1360,
+      "modelDelaySamples": 1360,
+      "sourceModelDelaySamples": null,
+      "latencyNote": "1360 samples is the validated added causalization delay relative to this original ONNX; original timbre model alignment delay is unknown. Dry compensation of 1360 addresses only the known added delay.",
+      "blockDurationMs": 42.666666666666664,
+      "opset": 12,
+      "irVersion": 7,
+      "bytes": 16554633,
+      "sha256": "4ed03acfab05f14618bb965656f903760c2b23e8c5cf7124440351ef30b4d895",
+      "sourceSha256": "ea94557a8d9b40f22a1dadbc93ab98f46144a68ce0bed1403a1558a2d1007f16",
+      "sourceURL": "https://github.com/Torsion-Audio/Scyclone/blob/2b1990c4ad04fec1981d21bdde94fdafbadb84e0/assets/models/djembe.onnx",
+      "author": "Torsion Audio; RAVE by Antoine Caillon and Philippe Esling / ACIDS IRCAM",
+      "license": "CC BY-NC 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "adaptation": "35 past Conv caches, four ConvTranspose cache/shift stages and synthesis modulation phase adjustment, explicit noise inputs, four latent gain/bias controls; all original initializers unchanged",
+      "validatedNative": true,
+      "experimental": true,
+      "parityFixture": "djembe-candidate/parity-fixture.json"
+    }
+  ]
+}

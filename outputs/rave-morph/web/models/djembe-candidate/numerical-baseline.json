@@ -1,0 +1,54 @@
+{
+  "all_optimization_aligned_parity": {
+    "max_abs": 0.0004582405090332031,
+    "rms": 1.5792320223803516e-05
+  },
+  "disabled_optimization_aligned_parity": {
+    "max_abs": 0.0004582405090332031,
+    "rms": 1.5792320223803516e-05
+  },
+  "full_graph_all_vs_disabled": {
+    "max_abs": 0.0,
+    "rms": 0.0
+  },
+  "stream_graph_all_vs_disabled": {
+    "max_abs": 0.0,
+    "rms": 0.0
+  },
+  "originalDynamicGraphLengthBaselines": [
+    {
+      "shortenedInputSamples": 131072,
+      "comparedRange": [
+        98304,
+        126976
+      ],
+      "sameOriginalGraphSamePrefixInputsNoiseError": {
+        "max_abs": 6.511807441711426e-05,
+        "rms": 6.750191303280635e-06
+      }
+    },
+    {
+      "shortenedInputSamples": 196608,
+      "comparedRange": [
+        98304,
+        192512
+      ],
+      "sameOriginalGraphSamePrefixInputsNoiseError": {
+        "max_abs": 6.371736526489258e-05,
+        "rms": 5.112454194126157e-06
+      }
+    },
+    {
+      "shortenedInputSamples": 245760,
+      "comparedRange": [
+        98304,
+        241664
+      ],
+      "sameOriginalGraphSamePrefixInputsNoiseError": {
+        "max_abs": 6.687641143798828e-05,
+        "rms": 5.726759694110754e-06
+      }
+    }
+  ],
+  "interpretation": "Disabling graph optimization did not reduce the error. The unadapted dynamic graph itself varies numerically with signal length; this does not prove that all candidate residual error has that sole cause. Report measured normal-noise error explicitly."
+}

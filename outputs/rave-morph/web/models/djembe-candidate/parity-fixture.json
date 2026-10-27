@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "model": "djembe-stateful-2048",
+  "modelSha256": "4ed03acfab05f14618bb965656f903760c2b23e8c5cf7124440351ef30b4d895",
+  "sampleRate": 48000,
+  "frameSize": 2048,
+  "frames": 8,
+  "channels": 1,
+  "samples": 16384,
+  "format": "IEEE754 little-endian float32 contiguous mono, no header",
+  "latentGain": 1,
+  "latentBias": 0,
+  "allNoiseInputs": 0,
+  "initialStates": "all zero",
+  "warmupFrames": 0,
+  "outputAlignment": "raw stream output; includes causalization delay; no output shift/crop/limiter/fade",
+  "tolerance": {
+    "maxAbs": 2e-05,
+    "rms": 2e-06
+  },
+  "nativeOutputPeak": 0.15439511835575104,
+  "input": {
+    "file": "parity-input.f32",
+    "bytes": 65536,
+    "sha256": "9876e81a80c91cb316e7adb0c742a43e33183abac7645f35f5b913670b59244f"
+  },
+  "expectedOutput": {
+    "file": "parity-expected.f32",
+    "bytes": 65536,
+    "sha256": "afd31eff1a48ab6aa8fa9e3f431b85f44a3a366b9e89c78750caff387c9cd94b"
+  }
+}

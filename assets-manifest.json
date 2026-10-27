@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "repository": "khrtkn/rave-web",
+  "tag": "v0.1.0",
+  "archive": {
+    "name": "rave-web-assets-v0.1.0.tar.gz",
+    "bytes": 323134841,
+    "sha256": "fcc6a1168006209fbb1c74e25f826d86f0185cd3d9f1c07b7551102b702d892b",
+    "url": "https://github.com/khrtkn/rave-web/releases/download/v0.1.0/rave-web-assets-v0.1.0.tar.gz"
+  },
+  "files": [
+    {
+      "path": "LICENSES/RAVE-CC-BY-NC-4.0.txt",
+      "bytes": 18759,
+      "sha256": "9cefc9f3ffacfa54318cd6b1e768f58985d28f8bb4d3ac10766a3980a91a25cf"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 11007,
+      "sha256": "a1cba0c0508ed68043bad0060cecec2db8ba9de6fecf285e05161e0215e46ae4"
+    },
+    {
+      "path": "outputs/rave-morph-lowlatency/web/models/organ-1024/ATTRIBUTION.md",
+      "bytes": 1208,
+      "sha256": "4e0ab5eac037397eb3c448ce5c95cf21c138a3e60e5af614dc41b0e537a589fa"
+    },
+    {
+      "path": "outputs/rave-morph-lowlatency/web/models/organ-1024/organ-causal-1024.onnx",
+      "bytes": 51575077,
+      "sha256": "5492cae9528458e15ece3c2e6ec73c2d20edc99f66e7e2ff31538eb5e4c1422b"
+    },
+    {
+      "path": "outputs/rave-morph-lowlatency/web/models/organ-512/ATTRIBUTION.md",
+      "bytes": 2265,
+      "sha256": "82d70f8e7c8b475e8b7d8491a483c8c29b22ff5d0e9ec08c8c69251966684e03"
+    },
+    {
+      "path": "outputs/rave-morph-lowlatency/web/models/organ-512/native-demo-input.wav",
+      "bytes": 1155152,
+      "sha256": "42d3728b1586fc6fa3942fe08a00a2d4c3f710c4e24d8dfc256272ae48e3906f"
+    },
+    {
+      "path": "outputs/rave-morph-lowlatency/web/models/organ-512/native-demo-knob-change.wav",
+      "bytes": 1155152,
+      "sha256": "9c2e49473d6c8d42a0f0230b3e1a2f70d96eeba4e2471df859cfc554a5aab1e2"
+    },
+    {
+      "path": "outputs/rave-morph-lowlatency/web/models/organ-512/native-demo-neutral.wav",
+      "bytes": 1155152,
+      "sha256": "6e74470167513ab47e48cebb4c00ef306ef46f73715933a353f4b347f101a418"
+    },
+    {
+      "path": "outputs/rave-morph-lowlatency/web/models/organ-512/organ-causal-512.onnx",
+      "bytes": 51572515,
+      "sha256": "01099b4120d451f66300c91b4c02030622688bb75b9c20e6ca0e616348c7d342"
+    },
+    {
+      "path": "outputs/rave-morph/web/models/ATTRIBUTION.md",
+      "bytes": 2537,
+      "sha256": "6c7e07a7a81598b2a82f3ab253c93b84eaacb5e6e58a6e45688a9ecc940df78e"
+    },
+    {
+      "path": "outputs/rave-morph/web/models/djembe-candidate/README.md",
+      "bytes": 7063,
+      "sha256": "4d54c92d85f8d4ae54271254e7bd166c41473f7faf91062998d340e4620c39a8"
+    },
+    {
+      "path": "outputs/rave-morph/web/models/djembe-candidate/djembe-stateful-2048.onnx",
+      "bytes": 16554633,
+      "sha256": "4ed03acfab05f14618bb965656f903760c2b23e8c5cf7124440351ef30b4d895"
+    },
+    {
+      "path": "outputs/rave-morph/web/models/water-latent-2048.onnx",
+      "bytes": 103377210,
+      "sha256": "da7cc4ac4888c200bc791b81715ffaf9cd5f251bdb604cb78e34296766ba172f"
+    },
+    {
+      "path": "outputs/rave-morph/web/models/water-latent-4096.onnx",
+      "bytes": 103385428,
+      "sha256": "767e814a3e2ada98f1f51eef9469e4d40d1de1675380bf4c51e13445bd2e127e"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/LICENSE",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ThirdPartyNotices.txt",
+      "bytes": 338088,
+      "sha256": "143764b952fdb1a7c69ce653bfba74a7744d6a8a573bfb73e235fba356c83de3"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort-wasm-simd-threaded.asyncify.mjs",
+      "bytes": 53057,
+      "sha256": "3d1c85995364bb643302fc6fd877a0c3ba5ae72401815e0f24828a53d9191e28"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort-wasm-simd-threaded.asyncify.wasm",
+      "bytes": 26781914,
+      "sha256": "39f9f0894d478800487ed9f7dbe92618498db320cf55c8e3d89adff8dce658da"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort-wasm-simd-threaded.jsep.mjs",
+      "bytes": 46851,
+      "sha256": "709853412fd1ffc34247af1e73569227b5b79629c5ca3f59cc39cf7e500e4947"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort-wasm-simd-threaded.jsep.wasm",
+      "bytes": 28312028,
+      "sha256": "3ad23231b5bd6d9dda55a7f84606315e0bf35b6750c28ee993c987c54cacab0f"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort-wasm-simd-threaded.mjs",
+      "bytes": 24381,
+      "sha256": "e13f7f94fc51b4ca72b12faeb1ee95f4ace6dfbc8939bc718aabdc0a27c4299b"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort-wasm-simd-threaded.wasm",
+      "bytes": 14239897,
+      "sha256": "3398c10d07d229bd91b364548e130e0e51a8e5704b88c7c083ebbeb78842dee2"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort.wasm.bundle.min.mjs",
+      "bytes": 73054,
+      "sha256": "11e64bd8ffe11bd1a2a2f0d6275fdfbbba7262f0b76b99b53d228a8a22ef3d90"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/ort.webgpu.bundle.min.mjs",
+      "bytes": 117732,
+      "sha256": "0730816731ce2cdfb06f273da065d4a1c7091eb9d1756a83b2916c8a89d015e2"
+    },
+    {
+      "path": "outputs/rave-morph/web/vendor/ort/provenance.json",
+      "bytes": 1658,
+      "sha256": "3bbdec452bc6ea003b888fc2cb170c97e5d62dcf684c5875d795fddff10ad6dd"
+    }
+  ],
+  "links": {
+    "outputs/rave-morph-lowlatency/web/legacy": "../../rave-morph/web",
+    "outputs/rave-morph-lowlatency/web/vendor": "../../rave-morph/web/vendor",
+    "outputs/rave-morph-lowlatency/web/models/comparison-water": "../../../rave-morph/web/models",
+    "outputs/rave-morph-lowlatency/web/models/comparison-djembe": "../../../rave-morph/web/models/djembe-candidate"
+  },
+  "licenseNote": "Model assets: CC BY-NC 4.0. ONNX Runtime: MIT and bundled third-party notices. See THIRD_PARTY_NOTICES.md."
+}
