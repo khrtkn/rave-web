@@ -3,11 +3,15 @@
 import hashlib
 import json
 import subprocess
+import time
+import http.client
+import urllib.error
 import urllib.request
 from pathlib import Path
+from organ_paths import options, verify_source_revisions
 
-BASE=Path(__file__).resolve().parents[3]
-WORK=BASE/'work/rave-lowlatency'
+OPTIONS=options(__doc__)
+WORK=OPTIONS.work_dir
 CHECKPOINT_DIR=WORK/'organ-b512'
 REV='c25a03d625840c40cd3a48779ed72f2a1947d7b4'
 HF='https://huggingface.co/Intelligent-Instruments-Lab/rave-models/'
@@ -25,18 +29,44 @@ def sha(path):
     return h.hexdigest()
 
 
+def fetch_verified(url,path,size,expected):
+    """Resume a partial anonymous GET; never install an unverified final file."""
+    partial=path.with_suffix(path.suffix+'.partial')
+    for attempt in range(3):
+        offset=partial.stat().st_size if partial.exists() else 0
+        if offset==size and sha(partial)==expected:
+            partial.replace(path);return
+        if offset>=size:
+            raise ValueError('Invalid completed partial download; remove the .partial file and retry: '+path.name)
+        headers={'User-Agent':'RAVE-Organ-source-preparation/1.0'}
+        if offset:headers['Range']='bytes='+str(offset)+'-'
+        try:
+            request=urllib.request.Request(url,headers=headers)
+            with urllib.request.urlopen(request,timeout=120) as response:
+                append=offset>0 and response.status==206
+                if append and not response.headers.get('Content-Range','').startswith('bytes '+str(offset)+'-'):
+                    raise ValueError('Unexpected partial download range: '+path.name)
+                with partial.open('ab' if append else 'wb') as f:
+                    while True:
+                        data=response.read(1024*1024)
+                        if not data:break
+                        f.write(data)
+            if partial.stat().st_size!=size:
+                raise OSError('Incomplete public download: '+path.name)
+            if sha(partial)!=expected:
+                raise ValueError('Public download SHA256 mismatch: '+path.name)
+            partial.replace(path);return
+        except (OSError,urllib.error.URLError,http.client.IncompleteRead):
+            if attempt==2:raise
+            time.sleep(attempt+1)
+
+
 def main():
     CHECKPOINT_DIR.mkdir(parents=True,exist_ok=True);records=[]
     for name,relative,size,expected in FILES:
         path=CHECKPOINT_DIR/name
         if not path.exists():
-            partial=path.with_suffix(path.suffix+'.partial')
-            with urllib.request.urlopen(HF+relative,timeout=120) as response,partial.open('wb') as f:
-                while True:
-                    data=response.read(1024*1024)
-                    if not data:break
-                    f.write(data)
-            partial.rename(path)
+            fetch_verified(HF+relative,path,size,expected)
         assert path.stat().st_size==size and sha(path)==expected,('Hash/size mismatch; existing file was not replaced',str(path))
         records.append({'file':name,'sourceURL':HF+relative,'bytes':size,'sha256':expected})
     for name,url,commit in REPOS:
@@ -49,7 +79,8 @@ def main():
         actual=subprocess.check_output(['git','-C',str(path),'rev-parse','HEAD'],text=True).strip()
         assert actual==commit,('Existing source has another revision; it was not reset',name,actual)
         records.append({'repository':url,'directory':name,'commit':commit})
-    destination=Path(__file__).resolve().parent/'source-manifest.json'
+    verify_source_revisions(WORK)
+    destination=WORK/'source-manifest.json'
     destination.write_text(json.dumps({'filesAndRepositories':records,'license':'CC BY-NC 4.0',
         'modelLicenseSource':'https://huggingface.co/Intelligent-Instruments-Lab/rave-models/blob/'+REV+'/README.md',
         'scope':'Anonymous public GET and pinned public Git source only; no Neutone assets or authenticated endpoints.'},indent=2)+'\n')

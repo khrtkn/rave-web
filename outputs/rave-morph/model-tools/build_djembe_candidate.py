@@ -9,11 +9,13 @@ from pathlib import Path
 
 import numpy as np
 import onnx
+import onnxruntime as ort
 from onnx import TensorProto, helper, numpy_helper
 
-from build_water_latent import errors, session, states_for, step
+from native_common import errors, session, states_for
+from prepare_djembe_source import AUTHOR, LICENSE_URL, SOURCE_BYTES, SOURCE_PAGE, SOURCE_SHA256, UPSTREAM_COMMIT
 
-SHA = "ea94557a8d9b40f22a1dadbc93ab98f46144a68ce0bed1403a1558a2d1007f16"
+SHA = SOURCE_SHA256
 EXTRA_DELAY = 1360
 
 
@@ -126,6 +128,8 @@ def run_stream(s,audio,knobs=None,noise=None):
             j=start//2048
             for name,arr in noise.items():feeds[name]=arr[:,:,j:j+1]
         t=time.perf_counter();r=dict(zip([o.name for o in s.get_outputs()],s.run(None,feeds)));timings.append((time.perf_counter()-t)*1000)
+        if not all(np.isfinite(array).all() for array in r.values()):
+            raise ValueError('Non-finite Djembe audio or state tensor')
         out.append(r['audio_out']);st={k:r['next_'+k] for k in st}
     return np.concatenate(out,axis=2),timings,st
 
@@ -133,7 +137,9 @@ def run_stream(s,audio,knobs=None,noise=None):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,required=True,help='Original Scyclone djembe.onnx; the pinned SHA-256 is verified')
     p.add_argument('--out',type=Path,default=Path(__file__).resolve().parents[1]/'web/models/djembe-candidate')
-    a=p.parse_args();data=a.source.read_bytes();assert hashlib.sha256(data).hexdigest()==SHA
+    a=p.parse_args();data=a.source.read_bytes()
+    if len(data)!=SOURCE_BYTES or hashlib.sha256(data).hexdigest()!=SHA:
+        raise ValueError('Djembe source differs from the pinned upstream byte size / SHA-256')
     model,states=streaming(data);encoded=model.SerializeToString()
     reference=session(explicit_noise(data).SerializeToString());s=session(encoded)
     rng=np.random.default_rng(20261026);length=2048*128
@@ -148,7 +154,10 @@ def main():
     print('ALIGNED_ERROR',e,flush=True)
     a.out.mkdir(parents=True,exist_ok=True)
     report={'sourceSha256':SHA,'totalEncoderStride':2048,'frameSize':2048,'additionalShiftSamples':EXTRA_DELAY,
+            'onnxSha256':hashlib.sha256(encoded).hexdigest(),'modelBytes':len(encoded),
             'noise':'Both explicit noise inputs zero','warmupExcludedSamples':warmup,'comparedSamples':length-warmup-EXTRA_DELAY,
+            'validationScope':'passed applies to aligned zero-noise parity; standard-normal-noise residuals are reported separately',
+            'zeroNoiseTolerance':{'maxAbs':2e-4,'rms':2e-5},
             'alignedError':e,'medianNativeMs':float(np.median(timings[32:])),'p95NativeMs':float(np.percentile(timings[32:],95)),
             'stateCount':len(states),'retainedLatentDimensions':4,'passed':e['max_abs']<2e-4 and e['rms']<2e-5}
     report['referenceOutputRmsAfterWarmup']=float(np.sqrt(np.mean(ref[:,:,warmup:].astype(np.float64)**2)))
@@ -161,6 +170,7 @@ def main():
     y_random,_,_=run_stream(s,audio,noise=random_noise)
     random_error=errors(ref_random[:,:,warmup:-EXTRA_DELAY],y_random[:,:,warmup+EXTRA_DELAY:])
     report['alignedSameExplicitRandomNoiseError']=random_error
+    report['normalNoiseStrictParityPassed']=random_error['max_abs']<2e-4 and random_error['rms']<2e-5
     report['randomNoiseParityNote']='Measured float32 long-signal versus short-block difference; exceeds the zero-noise strict threshold. Retained as experimental evidence, not reported as exact parity.'
     report['randomNoiseReferenceRms']=float(np.sqrt(np.mean(ref_random[:,:,warmup:-EXTRA_DELAY].astype(np.float64)**2)))
     axis_tests=[]
@@ -177,6 +187,12 @@ def main():
     repeated,_,repeated_state=run_stream(s,audio)
     assert np.array_equal(y,repeated) and all(np.array_equal(v,repeated_state[k]) for k,v in final_state.items())
     report['resetOutputAndAllStateTensorsBitwiseIdentical']=True
+    report['everyAudioAndStateOutputFinite']=True
+    report['sourceBytes']=SOURCE_BYTES
+    report['sourceCommit']=UPSTREAM_COMMIT
+    report['environment']={'numpy':np.__version__,'onnx':onnx.__version__,
+                           'onnxruntime':ort.__version__,
+                           'provider':'CPUExecutionProvider','intraOpThreads':1,'interOpThreads':1}
     orig_inits={x.name:x.SerializeToString() for x in onnx.load_from_string(data).graph.initializer}
     adapted_inits={x.name:x.SerializeToString() for x in model.graph.initializer}
     assert all(adapted_inits[k]==v for k,v in orig_inits.items())
@@ -197,11 +213,11 @@ def main():
         'additionalDelaySamples':EXTRA_DELAY,'dryOffsetSamples':EXTRA_DELAY,'modelDelaySamples':EXTRA_DELAY,'sourceModelDelaySamples':None,
         'latencyNote':'1360 samples is the validated added causalization delay relative to this original ONNX; original timbre model alignment delay is unknown. Dry compensation of 1360 addresses only the known added delay.',
         'blockDurationMs':2048/48,'opset':12,'irVersion':7,'bytes':len(encoded),'sha256':hashlib.sha256(encoded).hexdigest(),
-        'sourceSha256':SHA,'sourceURL':'https://github.com/Torsion-Audio/Scyclone/blob/2b1990c4ad04fec1981d21bdde94fdafbadb84e0/assets/models/djembe.onnx',
-        'author':'Torsion Audio; RAVE by Antoine Caillon and Philippe Esling / ACIDS IRCAM',
-        'license':'CC BY-NC 4.0','licenseURL':'https://creativecommons.org/licenses/by-nc/4.0/',
+        'sourceSha256':SHA,'sourceURL':SOURCE_PAGE,'sourceCommit':UPSTREAM_COMMIT,
+        'author':AUTHOR,
+        'license':'CC BY-NC 4.0','licenseURL':LICENSE_URL,
         'adaptation':'35 past Conv caches, four ConvTranspose cache/shift stages and synthesis modulation phase adjustment, explicit noise inputs, four latent gain/bias controls; all original initializers unchanged',
-        'validatedNative':True,'experimental':True,'parityFixture':'djembe-candidate/parity-fixture.json'}
+        'validatedNative':True,'experimental':True,'parityFixture':a.out.name+'/parity-fixture.json'}
     (a.out/'contract.json').write_text(json.dumps(contract,indent=2)+'\n')
     (a.out/'catalog.json').write_text(json.dumps({'version':1,'defaultModel':contract['id'],'models':[contract]},indent=2)+'\n')
     fixture_audio=audio[:,:,:16384].copy()

@@ -4,12 +4,13 @@ import hashlib
 import json
 from pathlib import Path
 import time
+from organ_paths import options
+OPTIONS=options(__doc__)
 import numpy as np
 import onnxruntime as ort
 import soundfile as sf
 
-BASE=Path(__file__).resolve().parents[3]
-ROOT=Path(__file__).resolve().parents[1]/'web/models'
+ROOT=OPTIONS.models_dir
 OUT=ROOT/'organ-512'
 
 
@@ -57,7 +58,7 @@ def main():
         fixture[key]={'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
     (OUT/'parity-fixture.json').write_text(json.dumps(fixture,indent=2)+'\n')
     print('FIXTURE_READY',json.dumps(fixture),flush=True)
-    d=np.load(BASE/'work/rave-lowlatency/organ-b512/demo-arrays.npz')
+    d=np.load(OPTIONS.work_dir/'organ-b512/demo-arrays.npz')
     audio=d['input'];noise=d['noise'];neutral=d['neutral']
     # Same warm state, signal, and explicitly fixed random epsilon in all axis comparisons.
     start=128

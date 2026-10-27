@@ -11,6 +11,8 @@ import subprocess
 import time
 import urllib.request
 import webbrowser
+sys.path.insert(0, str(Path(__file__).resolve().parent / 'scripts'))
+from model_catalog import verify
 
 ROOT=Path(__file__).resolve().parent
 
@@ -29,7 +31,9 @@ def main():
     args=parser.parse_args()
     if not 1024<=args.port<=65000:parser.error('Choose a port between 1024 and 65000.')
     print('RAVE Web Research — noncommercial research prototype',flush=True)
-    print('First launch downloads about 323 MB. Subsequent launches use the local assets.',flush=True)
+    catalog = verify()
+    print('Local models: ' + ', '.join(model['id'] for model in catalog['models']), flush=True)
+    print('First launch obtains ONNX Runtime Web from official npm (about 33 MB).',flush=True)
     subprocess.run([sys.executable,str(ROOT/'scripts/fetch-assets.py')],cwd=ROOT,check=True)
     port=available_port(args.port)
     url='http://127.0.0.1:'+str(port)+'/'
@@ -55,6 +59,6 @@ def main():
 
 if __name__=='__main__':
     try:main()
-    except (OSError,RuntimeError,subprocess.CalledProcessError) as error:
+    except (OSError,ValueError,KeyError,RuntimeError,subprocess.CalledProcessError) as error:
         print('\nCould not start: '+str(error),file=sys.stderr)
         raise SystemExit(1)

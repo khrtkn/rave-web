@@ -12,7 +12,7 @@ function error(err) { const text = err?.message || String(err); $('message').tex
 function clearError() { $('message').hidden = true; }
 function clearVerification() { verification = null; verificationAudio = null; $('verification-output').textContent = '未実行'; for (const id of ['download-results', 'download-neutral', 'download-changed']) $(id).disabled = true; }
 function controls() {
-  $('load-model').disabled = busy || recording;
+  $('load-model').disabled = busy || recording || !catalog?.models?.length;
   for (const id of ['model-select', 'variant-select', 'backend']) $(id).disabled = busy || running;
   $('start').disabled = busy || running || !loaded;
   $('stop').disabled = !running; for (const id of ['input-device', 'output-device', 'refresh-devices']) $(id).disabled = busy || running; $('latency-profile').disabled = busy || running || contract?.family !== 'organ';
@@ -198,11 +198,12 @@ $('download-neutral').addEventListener('click', () => { if (verificationAudio) s
 $('download-changed').addEventListener('click', () => { if (verificationAudio) saveBlob(encodeWav(verificationAudio.changed, verificationAudio.sampleRate), 'rave-morph-latent-changed.wav'); });
 window.addEventListener('pagehide', () => { engine?.dispose(); preview?.close(); });
 try {
-  const response = await fetch('./models/catalog.json'); if (!response.ok) throw new Error(`モデル一覧の取得に失敗しました: ${response.status}`); catalog = await response.json();
+  const response = await fetch('./models/catalog.json'); if (!response.ok) throw new Error('モデルの準備が必要です。リポジトリーの MODEL_SOURCES.md を参照してください。'); catalog = await response.json();
+  if (!catalog.models?.length) throw new Error('モデルが未登録です。MODEL_SOURCES.md の手順で取得・変換してください。');
   const families = new Map(); for (const model of catalog.models) if (!families.has(modelFamily(model))) families.set(modelFamily(model), model.familyName || (model.id.startsWith('water') ? 'Water / IIL · Pond Brain' : model.name));
   for (const [id, name] of families) $('model-select').add(new Option(name, id));
   $('model-select').value = modelFamily(catalog.models.find(m => m.id === catalog.defaultModel) || catalog.models[0]); populateVariants();
   $('variant-select').value = catalog.defaultModel;
   const initialModel = selectedModel(); if (initialModel.family === 'organ') $('backend').value = navigator.gpu ? 'webgpu-retain' : globalThis.crossOriginIsolated ? navigator.hardwareConcurrency >= 4 ? 'wasm-4' : 'wasm-2' : 'wasm'; responseProfiles(initialModel); latentGain = Array(initialModel.latentDimensions).fill(1); latentBias = Array(initialModel.latentDimensions).fill(0); makeKnobs(initialModel.exposedDimensions);
   status('モデルをロードしてください'); controls(); await refreshDevices();
-} catch (e) { error(e); }
+} catch (e) { error(e); controls(); }

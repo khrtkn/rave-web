@@ -2,23 +2,35 @@
 
 This directory builds the pretrained IIL `organ_archive_b512_r48000` model into a browser-compatible stateful ONNX. It does not train a replacement model and does not use Neutone Morpho assets. Earlier `outputs/rave-morph/` files are read only.
 
-## Reproduce from the task workspace
+## Reproduce from a fresh repository root
 
-Prerequisites for **building**: Python 3.12, Git, network access to public PyPI/GitHub/Hugging Face, and enough space for the 670 MB training checkpoint and a local virtual environment. The finished browser app needs none of these Python/build dependencies.
+Prerequisites for **building**: Python 3.12, Git, network access to public PyPI/GitHub/Hugging Face, and several GB of free disk space for the 670 MB training checkpoint, dependencies and generated files. Commands below run from the root of this repository. This workflow obtains the original model from its public provider; it does not download a project-hosted converted model. Water and Djembe files are not prerequisites.
 
 ```sh
 python3.12 -m venv work/rave-lowlatency/venv
 work/rave-lowlatency/venv/bin/python -m pip install --no-cache-dir -r outputs/rave-morph-lowlatency/model-tools/requirements-lock.txt
 work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/prepare_sources.py
-work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/build_organ.py
+work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/build_organ.py --update-catalog
 work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/verify_organ.py
 work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/audit_reference.py
-work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/build_organ_1024.py
+work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/build_organ_1024.py --update-catalog
 ```
 
-`prepare_sources.py` fetches only the two explicit anonymous official model URLs and two pinned public source repositories. It verifies file sizes/SHA256 and Git revisions; it refuses to overwrite a mismatched existing final file or reset an existing source checkout. A network failure may leave a workspace-local `.partial` file. The script records sources in `source-manifest.json`.
+`prepare_sources.py` fetches only the two explicit anonymous official model URLs and two pinned public source repositories. It verifies file sizes/SHA256, Git revisions and tracked source cleanliness; it refuses to overwrite a mismatched existing final file or reset an existing source checkout. A network failure may leave a workspace-local `.partial` file. The script records sources in `work/rave-lowlatency/source-manifest.json`. The checked-in `source-manifest.json` is the original source reference and is not rewritten.
 
-All source/checkpoint files and the virtual environment stay under `work/rave-lowlatency/`. Generated models, fixtures, numerical results and WAV files go to `../web/models/organ-512/`. The builder updates **only the new app's** model catalog and preserves other entries there. Earlier comparison models are referenced by read-only-use symlinks in the new app; they are not copied or rewritten by the exporter.
+All source/checkpoint files and the virtual environment stay under `work/rave-lowlatency/`. Generated models, fixtures, numerical results and synthetic WAV files go to `outputs/rave-morph-lowlatency/web/models/organ-512/` and `organ-1024/`. The normal scripts do not modify a catalog; the explicit `--update-catalog` flag above registers the newly generated model and preserves other entries. An existing default whose model is unavailable is replaced by the generated model. Neither builder reads or requires comparison models. Generated ONNX files and checkpoints are local build outputs, not source files to commit.
+
+Every command also accepts `--work-dir PATH` and `--models-dir PATH`. Pass the same values to all five commands for an isolated build. `--models-dir` is the parent of `organ-512/` and `organ-1024/`, not an individual model directory. For example:
+
+```sh
+work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/prepare_sources.py --work-dir work/organ-isolated
+work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/build_organ.py --work-dir work/organ-isolated --models-dir work/organ-generated
+work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/verify_organ.py --work-dir work/organ-isolated --models-dir work/organ-generated
+work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/audit_reference.py --work-dir work/organ-isolated --models-dir work/organ-generated
+work/rave-lowlatency/venv/bin/python outputs/rave-morph-lowlatency/model-tools/build_organ_1024.py --work-dir work/organ-isolated --models-dir work/organ-generated
+```
+
+The isolated example leaves the browser app's catalog unchanged. Export must finish before verification; `build_organ_1024.py` additionally needs the 512 ONNX, contract and deterministic arrays produced by the first build. It validates that newly generated ONNX against its own contract hash and the fixed original checkpoint. It does not require an earlier project release hash.
 
 The lock file captures the actual successful environment, including PyTorch/torchaudio 2.5.0, ONNX 1.23.2, ONNX Runtime 1.31.0, NumPy 1.26.4, Lightning 1.9.0, and SciPy 1.12.0. The original fork's SciPy 1.10 pin predates Python 3.12 support; the compatibility version was tested against the actual checkpoint. Setuptools 69.5.1 supplies `pkg_resources` required by Lightning 1.9. `nn_tilde` introduced the matching PyTorch 2.5.0 constraint in this environment.
 

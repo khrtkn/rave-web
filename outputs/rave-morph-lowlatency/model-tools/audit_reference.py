@@ -2,6 +2,8 @@
 """Check unchanged RAVE.forward versus neutral controls with identical sampled noise."""
 import json
 from pathlib import Path
+from organ_paths import options
+OPTIONS=options(__doc__)
 import torch
 from build_organ import load_source, Controlled, OUT, err
 

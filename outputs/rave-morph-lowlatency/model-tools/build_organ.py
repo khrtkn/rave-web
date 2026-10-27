@@ -8,10 +8,12 @@ import platform
 import sys
 import time
 from pathlib import Path
+from organ_paths import options, update_catalog, verify_source_revisions
 
-BASE = Path(__file__).resolve().parents[3]
-WORK = BASE/'work/rave-lowlatency'
-OUT = Path(__file__).resolve().parents[1]/'web/models/organ-512'
+OPTIONS = options(__doc__, imported=__name__ != '__main__')
+WORK = OPTIONS.work_dir
+OUT = OPTIONS.models_dir/'organ-512'
+verify_source_revisions(WORK)
 sys.path.insert(0,str(WORK/'cached_conv'))
 sys.path.insert(0,str(WORK/'RAVE'))
 
@@ -24,6 +26,9 @@ import rave
 import cached_conv as cc
 import onnx
 import onnxruntime as ort
+
+assert Path(rave.__file__).resolve().is_relative_to(WORK/'RAVE'), 'Wrong RAVE import'
+assert Path(cc.__file__).resolve().is_relative_to(WORK/'cached_conv'), 'Wrong cached_conv import'
 
 CHECKPOINT_SHA='218518cb0f7c2670a9cd3973c3e2972632893f599deacc851998b372a8f8a22e'
 CONFIG_SHA='975e0e8615204af6c9f8aa901275ac634d70f60011c898dbc103e1e4fb09ccb0'
@@ -187,12 +192,28 @@ def write_contract(meta,specs):
         'adaptation':'Causal learned model, 36 explicit past states, posterior Gaussian epsilon input, six PCA delta gain/bias controls. No retraining; original learned state loaded and weight norm folded.',
         'validatedNative':True,'experimental':True,'parityFixture':'organ-512/parity-fixture.json'}
     (OUT/'contract.json').write_text(json.dumps(c,ensure_ascii=False,indent=2)+'\n')
-    catpath=OUT.parent/'catalog.json'
-    catalog=json.loads(catpath.read_text()) if catpath.exists() else {'version':1,'models':[]}
-    catalog['models']=[c]+[x for x in catalog['models'] if x['id']!=c['id']]
-    catalog['defaultModel']=c['id']
-    catpath.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n')
+    update_catalog(c,OPTIONS)
     return c
+
+
+def write_attribution():
+    (OUT/'ATTRIBUTION.md').write_text('''# IIL Organ 512 model attribution
+
+Adapted pretrained RAVE model; independent of Neutone Morpho.
+
+- Model provider: Intelligent Instruments Lab (IIL).
+- Pinned checkpoint/config: [organ_archive_b512_r48000 at c25a03d625840c40cd3a48779ed72f2a1947d7b4](https://huggingface.co/Intelligent-Instruments-Lab/rave-models/tree/c25a03d625840c40cd3a48779ed72f2a1947d7b4/checkpoints/organ_archive_b512_r48000).
+- Checkpoint SHA256: `218518cb0f7c2670a9cd3973c3e2972632893f599deacc851998b372a8f8a22e`; config SHA256: `975e0e8615204af6c9f8aa901275ac634d70f60011c898dbc103e1e4fb09ccb0`.
+- RAVE research/architecture: Antoine Caillon and Philippe Esling / ACIDS-IRCAM.
+- Causal source: [Victor Shepardson / RAVE ab7d40d6740130f0268debbc4b6633318357ea7d](https://github.com/victor-shepardson/RAVE/tree/ab7d40d6740130f0268debbc4b6633318357ea7d), [cached_conv d2da85992d030dcf1dd8ebf318c3d69753729295](https://github.com/victor-shepardson/cached_conv/tree/d2da85992d030dcf1dd8ebf318c3d69753729295).
+- Model/source terms: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), as stated in the [pinned IIL model card](https://huggingface.co/Intelligent-Instruments-Lab/rave-models/blob/c25a03d625840c40cd3a48779ed72f2a1947d7b4/README.md) and pinned source licenses. Retain attribution, source/license links, original notices and change descriptions. Commercial permission has not been obtained.
+
+Changes: exported the learned causal encoder/decoder to ONNX with 36 explicit past states, explicit standard-normal posterior sampling, and gain/bias delta controls in six stored PCA directions. All 128 posterior coordinates are retained. Weight normalization is folded for inference. No retraining or replacement learned weights. See the adjacent numerical audit and contract.
+
+The exact training-recording list for this b512 checkpoint is not established here. A separately published b2048 Organ model is a distinct artifact.
+
+ONNX Runtime is a separate MIT-licensed runtime; retain its LICENSE and ThirdPartyNotices.txt when distributing it. Its terms do not replace the model's noncommercial conditions.
+''')
 
 
 def main():
@@ -240,6 +261,7 @@ def main():
     (OUT/'native-validation.json').write_text(json.dumps(meta,indent=2)+'\n')
     (OUT/'state-spec.json').write_text(json.dumps(specs,indent=2)+'\n')
     write_contract(meta,specs)
+    write_attribution()
     np.savez(WORK/'organ-b512/demo-arrays.npz',input=audio.numpy(),noise=eps.numpy(),neutral=ortout)
     print(json.dumps(meta,indent=2))
 

@@ -30,7 +30,7 @@ The known added shift is recorded as `additionalDelaySamples`, `dryOffsetSamples
 - Source long-signal versus streaming candidate, identical zero noise, aligned by 1360: maximum absolute error `4.74e-9`, RMS `2.18e-10`, over 162,480 samples after warmup.
 - Identical explicit standard-normal noise: maximum `4.58e-4`, RMS `1.58e-5` (reference RMS `1.739`). This is measured approximate float32 equivalence, not exact parity. It exceeds the strict zero-noise absolute threshold and remains explicitly experimental.
 - All four dimensions' gain and bias independently change output, with the same input/noise and warm state. Resetting reproduces the output and all 39 states bit for bit.
-- Latest native CPU one-thread median about 2.18 ms / p95 3.25 ms per 2048 packet. These are native timings, not browser timings; see the app's browser measurements separately.
+- Native CPU one-thread timings are measured on each rebuild and written to the generated validation report. They are machine-dependent native timings, not browser timings or physical input/output latency.
 
 `numerical-baseline.json` records that disabling ONNX graph optimization did not remove the normal-noise error. The unmodified dynamic model itself varies with input length (maximum about `6.7e-5` on equal-prefix inputs/noise). That observation does not establish that every residual candidate error has the same cause.
 
@@ -46,11 +46,24 @@ The native [InferenceThread](https://github.com/Torsion-Audio/Scyclone/blob/2b19
 
 ## Reproduce
 
-From the workspace using the model-tools virtual environment:
+From a fresh repository checkout, create a separate build environment. The downloader uses only the Python standard library; conversion/audit need the pinned dependencies below. No Water source, Water intermediate ONNX, training checkpoint or retraining is required.
 
 ```sh
-work/rave-morph-model-venv/bin/python outputs/rave-morph/model-tools/build_djembe_candidate.py
-work/rave-morph-model-venv/bin/python outputs/rave-morph/model-tools/audit_djembe_candidate.py
+python3.12 -m venv .venv-models
+.venv-models/bin/python -m pip install -r outputs/rave-morph/model-tools/requirements.txt
+.venv-models/bin/python outputs/rave-morph/model-tools/prepare_djembe_source.py --output work/djembe-source/djembe.onnx
+.venv-models/bin/python outputs/rave-morph/model-tools/build_djembe_candidate.py --source work/djembe-source/djembe.onnx --out work/generated-models/djembe
+.venv-models/bin/python outputs/rave-morph/model-tools/audit_djembe_candidate.py --source work/djembe-source/djembe.onnx --out work/generated-models/djembe
 ```
 
-Both scripts read the original djembe file without modifying it. Outputs stay in this candidate directory; Water's catalog, contract, and models are not rewritten. The original source path can be supplied to the builder with `--source`. The original ONNX SHA is checked before modification.
+On Windows, use `.venv-models\Scripts\python.exe` instead of `.venv-models/bin/python`. The Python 3.12 environment and exact versions above were checked on macOS; Windows/Linux build performance and compatibility are not guaranteed.
+
+`prepare_djembe_source.py` fetches the unmodified ONNX directly from the fixed public Scyclone revision, verifies its size and SHA-256, and installs it atomically. The download URL is fixed in the script; redirects and mismatched files are rejected. A verified existing source file is reused. The builder and audit read that file without changing it. Their shared `native_common.py` contains only native inference helpers and does not import a Water builder or read any catalog.
+
+Outputs in `work/generated-models/djembe` include the local adapted ONNX, `contract.json`, a Djembe-only `catalog.json`, state mapping, synthetic parity data and validation reports. No shared app catalog or Water artifacts are modified by these commands. The audit reloads the saved model/fixture, checks the original noise semantics and reports normal-noise numerical residuals. Source and generated model files are acquired/built locally; this source repository does not need to redistribute either model binary. Attribution and CC BY-NC 4.0 conditions continue to apply to local use and any later sharing.
+
+The downloader's offline integrity checks can be run without ONNX dependencies:
+
+```sh
+python3 -m unittest discover -s outputs/rave-morph/model-tools -p test_djembe_source.py -v
+```

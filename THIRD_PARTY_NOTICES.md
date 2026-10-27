@@ -1,6 +1,6 @@
 # Third-Party Notices
 
-このファイルは、RAVE Web Research が使用・改変するモデル、モデル変換用ソース、ブラウザー実行環境の出典と条件を記録します。本リポジトリーの独自部分に対するルートの [LICENSE](LICENSE) は、以下の第三者の権利・ライセンスを置き換えるものではありません。Release assets に含まれる個別の attribution、license、notice も保持してください。
+このファイルは、RAVE Web Research が使用・改変するモデル、モデル変換用ソース、ブラウザー実行環境の出典と条件を記録します。本リポジトリーの独自部分に対するルートの [LICENSE](LICENSE) は、以下の第三者の権利・ライセンスを置き換えるものではありません。元モデルと改変モデルのバイナリーは本リポジトリーや Release に含めません。各自が公開元から取得し、ローカルで変換します。生成先の attribution、license、notice も保持してください。
 
 ## 1. RAVE の研究とソース
 
@@ -37,11 +37,11 @@ config.gin  975e0e8615204af6c9f8aa901275ac634d70f60011c898dbc103e1e4fb09ccb0
 
 本プロジェクトでの変更（2026-10-26）：学習済みの encoder / decoder を ONNX へ書き出し、36 個の過去状態と変分サンプリングの正規ノイズを明示的な入出力にしました。128 次元の posterior を保持し、checkpoint に保存された PCA のうち 6 方向へ gain / bias の差分操作を加えました。推論用に weight normalization を畳み込んでいます。再学習や重みの置き換えは行っていません。
 
-Organ 1024 は同じ学習済みの重みで 512 サンプルの処理ステップを 2 回まとめる版です。独立して再学習したモデルではありません。これらの改変モデルも CC BY-NC 4.0 の条件で配布します。
+Organ 1024 は同じ学習済みの重みで 512 サンプルの処理ステップを 2 回まとめる版です。独立して再学習したモデルではありません。ローカルで生成する改変モデルにも CC BY-NC 4.0 の条件が適用されます。
 
 この出典は **b512 の checkpoint** です。別途公開された b2048 の Organ TorchScript と同じファイルではありません。b2048 の説明から、この checkpoint の正確な学習録音一覧を推定していません。
 
-## 3. Water / Pond Brain と改変 ONNX
+## 3. Water / Pond Brain：履歴資料のみ、今回の再現手順の対象外
 
 **提供元：Intelligent Instruments Lab（IIL）**。Jenna Sutela の *Pond Brain* のために制作された Water モデルです。上流の説明・録音提供者の表示は [固定版 IIL モデルカードの Pond Brain Marine Sounds 節](https://huggingface.co/Intelligent-Instruments-Lab/rave-models/blob/c25a03d625840c40cd3a48779ed72f2a1947d7b4/README.md#pond-brain-marine-sounds) を参照してください。
 
@@ -95,7 +95,7 @@ ea94557a8d9b40f22a1dadbc93ab98f46144a68ce0bed1403a1558a2d1007f16
 sha512-q0y+JrrtukXSzsBWEMccVfqX25LRmosXHF+CaRJmg8pZClzcV7svNc4rKY3jL02Vb7QmRMDs1SigqR4CXAfKYQ==
 ```
 
-ブラウザー用 JS / MJS / WASM とともに、パッケージ内の **`LICENSE` と `ThirdPartyNotices.txt` の両方を保持**してください。後者には Runtime に含まれる依存物の表示があります。Release assets から復元される `web/vendor/ort/` 内にもこれらを含めます。
+ブラウザー用 JS / MJS / WASM は公式 npm から取得します。この tarball にはライセンス文書が含まれないため、公式ソース由来の **`LICENSE` と `ThirdPartyNotices.txt` は本リポジトリーの `outputs/rave-morph/web/vendor/ort/` に原文を保持**しています。取得スクリプトはこれらもハッシュ照合します。後者には Runtime の依存物の表示があります。取得元・SHA は同ディレクトリーの `provenance.json` と `scripts/runtime-manifest.json` を参照してください。
 
 モデル変換・検証用の Python 依存関係はブラウザー配布物とは別です。たとえば model-tools の native `onnxruntime` とブラウザー用 `onnxruntime-web` は別パッケージです。依存関係を取得・再配布する場合は、それぞれの配布物に付属するライセンスを保持してください。
 

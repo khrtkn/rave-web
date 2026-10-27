@@ -1,3 +1,7 @@
+現在の元モデルからの再現手順は [Djembe](DJEMBE.md) とルートの [MODEL_SOURCES.md](../../../MODEL_SOURCES.md) を参照してください。Water の下記手順は過去の中間 ONNX を必要とする履歴資料です。公開元 TorchScript からの再現手順ではありません。
+
+---
+
 # RAVE latent model tools
 
 This is an independent RAVE implementation. It does not contain Neutone Morpho models or implement Morpho's proprietary engine.
@@ -44,7 +48,7 @@ After both model builds, refresh the app's combined catalog:
 python3 outputs/rave-morph/model-tools/update_catalog.py --default djembe-stateful-2048
 ```
 
-For a Water-only build, pass `--default water-latent-2048` instead. The app uses `web/models/catalog.json`; `contract.json` remains a per-model contract and is not the current selection. Runtime/model dependencies are already bundled for ordinary browser use.
+For a Water-only build, pass `--default water-latent-2048` instead. The app uses `web/models/catalog.json`; `contract.json` remains a per-model contract and is not the current selection. Runtime and model binaries are not bundled. Use the root MODEL_SOURCES.md workflow.
 
 ## Separate smaller candidate
 

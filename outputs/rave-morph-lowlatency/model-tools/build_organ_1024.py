@@ -10,6 +10,8 @@ import json
 import platform
 import time
 from pathlib import Path
+from organ_paths import options, update_catalog
+OPTIONS=options(__doc__)
 
 import numpy as np
 import onnx
@@ -17,12 +19,10 @@ import onnxruntime as ort
 import torch
 import build_organ as original
 
-BASE=Path(__file__).resolve().parents[3]
-MODELS=Path(__file__).resolve().parents[1]/'web/models'
+MODELS=OPTIONS.models_dir
 SOURCE=MODELS/'organ-512'
 OUT=MODELS/'organ-1024'
 FRAME=1024
-SOURCE_ONNX_SHA='01099b4120d451f66300c91b4c02030622688bb75b9c20e6ca0e616348c7d342'
 
 def stats(x):
     a=np.asarray(x,dtype=np.float64)
@@ -98,30 +98,22 @@ def write_contract(source_contract,meta,spec):
               'adaptation':'Same verified causal Organ checkpoint and learned weights as512 export;1024-sample packets,36 unchanged explicit past states,128x2 posterior Gaussian epsilon, six PCA delta controls broadcast across two latent frames. No retraining or quantization.',
               'validatedNative':True,'experimental':True})
     (OUT/'contract.json').write_text(json.dumps(c,ensure_ascii=False,indent=2)+'\n')
-    # Read the latest catalog just before this small mutation; preserve default and other entries.
-    p=MODELS/'catalog.json';catalog=json.loads(p.read_text());previous_default=catalog.get('defaultModel')
-    entries=[]
-    for item in catalog['models']:
-        if item['id']=='organ-causal-1024':continue
-        entries.append(item)
-        if item['id']=='organ-causal-512':entries.append(c)
-    if not any(item['id']==c['id'] for item in entries):entries.append(c)
-    catalog['models']=entries
-    assert catalog.get('defaultModel')==previous_default
-    p.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n')
+    update_catalog(c,OPTIONS)
     return c
 
 def main():
     torch.set_num_threads(1);torch.manual_seed(20261026);OUT.mkdir(parents=True,exist_ok=True)
     source_onnx=SOURCE/'organ-causal-512.onnx'
-    assert original.sha(source_onnx)==SOURCE_ONNX_SHA
     source_contract=json.loads((SOURCE/'contract.json').read_text())
+    source_onnx_sha=original.sha(source_onnx)
+    assert source_onnx_sha==source_contract['sha256']
+    assert source_contract['sourceCheckpointSha256']==original.CHECKPOINT_SHA
     source_initializers=initializer_signatures(onnx.load(source_onnx))
     model,audit=original.load_source()
     reference=original.Controlled(model).eval();stream=original.Stateful(reference).eval()
     spec=stream.context.spec
     assert spec==source_contract['states'] and len(spec)==36
-    d=np.load(BASE/'work/rave-lowlatency/organ-b512/demo-arrays.npz')
+    d=np.load(OPTIONS.work_dir/'organ-b512/demo-arrays.npz')
     audio=torch.from_numpy(d['input']);noise=torch.from_numpy(d['noise']);n=audio.shape[-1]
     assert n%FRAME==0 and noise.shape==(1,128,n//512)
     gain=torch.ones(1,6,1);bias=torch.zeros_like(gain)
@@ -157,7 +149,7 @@ def main():
         controls.append({'dimension':dim+1,'bias':.5,'difference':diff,'finite':stats(changed)['finite']})
     meta={'environment':{'torch':torch.__version__,'onnx':onnx.__version__,'onnxruntime':ort.__version__,
                          'platform':platform.platform(),'threads':1},
-          'source512ModelSha256':SOURCE_ONNX_SHA,'checkpointSha256':original.CHECKPOINT_SHA,'configSha256':original.CONFIG_SHA,
+          'source512ModelSha256':source_onnx_sha,'checkpointSha256':original.CHECKPOINT_SHA,'configSha256':original.CONFIG_SHA,
           'sourceWeightAudit':'../organ-512/native-validation.json','sourceForwardAudit':'../organ-512/source-forward-audit.json',
           'sourceStateLoadMissingKeys':audit['sourceMissingNonInferenceBuffer'],'allLearnedStateLoaded':audit['allLearnedStateLoaded'],
           'all512InitializersBitwiseIdentical':True,'initializerCount':len(source_initializers),
@@ -183,7 +175,7 @@ Source: [IIL checkpoint c25a03d](https://huggingface.co/Intelligent-Instruments-
 1024 samples is the packet size, not a new encoder compression ratio or a measured physical latency. No additional shift is needed against the native reference; absolute dry/wet and physical round-trip delay remain unmeasured.
 ''')
     c=write_contract(source_contract,meta,spec)
-    assert original.sha(source_onnx)==SOURCE_ONNX_SHA
+    assert original.sha(source_onnx)==source_onnx_sha
     print('DONE',json.dumps({k:meta[k] for k in ['nativeLongVsStreamError','native512Vs1024StreamError','onnxVsNativeStreamError','onnx512Vs1024StreamError','nativeStreamMs','ortStreamMs','onnxBytes','onnxSha256','passed']}),flush=True)
 
 if __name__=='__main__':main()

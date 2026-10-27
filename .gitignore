@@ -1,6 +1,7 @@
 # Local builds and private verification data
 work/
 .venv/
+.venv-*/
 __pycache__/
 *.py[cod]
 .DS_Store
@@ -12,7 +13,16 @@ validation/
 *.wasm
 *.wav
 *.partial
-# Runtime vendor files are restored from the checksummed GitHub Release.
+# Generated model contracts, fixtures and validation results stay local.
+outputs/rave-morph-lowlatency/web/models/*/
+!outputs/rave-morph-lowlatency/web/models/organ-512/
+!outputs/rave-morph-lowlatency/web/models/organ-1024/
+outputs/rave-morph-lowlatency/web/models/organ-512/*
+outputs/rave-morph-lowlatency/web/models/organ-1024/*
+!outputs/rave-morph-lowlatency/web/models/organ-512/ATTRIBUTION.md
+!outputs/rave-morph-lowlatency/web/models/organ-1024/ATTRIBUTION.md
+outputs/rave-morph-lowlatency/web/models/catalog.json
+# Runtime binaries are obtained directly from official npm.
 outputs/rave-morph/web/vendor/ort/*
 !outputs/rave-morph/web/vendor/ort/LICENSE
 !outputs/rave-morph/web/vendor/ort/ThirdPartyNotices.txt
